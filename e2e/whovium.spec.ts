@@ -21,3 +21,14 @@ test.describe("The Whovium home page", () => {
     await expect(page).toHaveURL(/.*boards/);
   });
 });
+
+test.describe("The board list page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("http://localhost:3000/boards");
+  });
+
+  test("Contains the page heading", async ({ page }) => {
+    const heading = page.getByRole("heading").first();
+    expect(heading).toHaveText(/boards/i);
+  });
+});
