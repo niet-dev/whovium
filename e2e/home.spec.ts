@@ -5,6 +5,10 @@ test.describe("The Whovium home page", () => {
     await page.goto("http://localhost:3000/");
   });
 
+  test("Has the website title set appropriately", async ({ page }) => {
+    expect(page).toHaveTitle(/whovium/i);
+  });
+
   test("Contains the title of the website", async ({ page }) => {
     const heading = page.getByRole("heading").first();
     expect(heading).toHaveText(/whovium/i);
