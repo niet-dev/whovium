@@ -4,13 +4,14 @@ import { faker } from "@faker-js/faker";
 import BoardSummary from "@/components/BoardSummary";
 import { Board } from "@/lib/types";
 
-const board: Board = {
-  title: faker.book.title(),
-  createdBy: faker.book.author(),
-  description: faker.lorem.sentences(2),
-};
-
 describe("BoardSummary", () => {
+  const board: Board = {
+    id: faker.string.uuid(),
+    title: faker.book.title(),
+    createdBy: faker.book.author(),
+    description: faker.lorem.sentences(2),
+  };
+
   beforeEach(() => {
     render(<BoardSummary board={board} />);
   });
