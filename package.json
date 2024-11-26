@@ -13,8 +13,9 @@
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "e2e:debug": "npx playwright test --debug",
-    "stub-server": "tsx ./src/stub-server/server.ts",
-    "stub-server:seed": "curl http://localhost:8080/boards?_seed=true"
+    "stub-server": "tsx ./src/stub-server/index.ts",
+    "stub-server:seed": "curl http://localhost:8080/boards?_seed=true",
+    "stub-server:cleanup": "curl -X DELETE http://localhost:8080/boards?_cleanup=true"
   },
   "dependencies": {
     "next": "15.0.3",
