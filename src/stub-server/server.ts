@@ -7,7 +7,9 @@ export const createJsonServer = () => {
   const router = jsonServer.router("src/stub-server/db.json");
   const middlewares = jsonServer.defaults();
 
-  server.use((req, res, next) => {
+  server.use(middlewares);
+
+  server.use("/", (req, res, next) => {
     if (req.method === "DELETE" && req.query["_cleanup"]) {
       const db = router.db;
       db.set("boards", []).write();
@@ -17,7 +19,7 @@ export const createJsonServer = () => {
     }
   });
 
-  server.use((req, res, next) => {
+  server.use("/", (req, res, next) => {
     if (req.method === "GET" && req.query["_seed"]) {
       const db = router.db;
       db.set("boards", seedBoards(100)).write();
@@ -27,7 +29,14 @@ export const createJsonServer = () => {
     }
   });
 
-  server.use(middlewares);
+  server.use("/", function (req, res, next) {
+    if (req.method === "GET") {
+      res.sendStatus(200);
+    } else {
+      next();
+    }
+  });
+
   server.use(router);
 
   return server;
