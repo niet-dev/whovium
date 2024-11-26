@@ -2,6 +2,7 @@
   "name": "whovium",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -11,7 +12,10 @@
     "test:watch": "jest --watch",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
-    "e2e:debug": "npx playwright test --debug"
+    "e2e:debug": "npx playwright test --debug",
+    "stub-server": "tsx ./src/stub-server/index.ts",
+    "stub-server:seed": "curl http://localhost:8080/?_seed=true",
+    "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true"
   },
   "dependencies": {
     "next": "15.0.3",
@@ -19,6 +23,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
     "@playwright/test": "^1.49.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -32,10 +37,11 @@
     "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "json-server": "^0.17.4",
     "postcss": "^8",
     "prettier": "3.3.3",
     "tailwindcss": "^3.4.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
