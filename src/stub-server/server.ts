@@ -29,8 +29,8 @@ export const createJsonServer = () => {
     }
   });
 
-  server.use("/", function (req, res, next) {
-    if (req.method === "GET") {
+  server.use((req, res, next) => {
+    if (req.method === "GET" && req.path === "/") {
       res.sendStatus(200);
     } else {
       next();
