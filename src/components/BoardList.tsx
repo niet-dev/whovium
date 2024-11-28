@@ -2,7 +2,7 @@ import BoardSummary from "./BoardSummary";
 
 const BoardList = ({ boards }: { boards: Board[] }) => {
   if (!boards || boards.length === 0) {
-    return <p>No data available.</p>;
+    return <p aria-label="Empty board list">No data available.</p>;
   }
 
   return (

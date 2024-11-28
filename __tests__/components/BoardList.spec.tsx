@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 
 import BoardList from "@/components/BoardList";
@@ -32,5 +32,27 @@ describe("BoardList", () => {
     const boardCount = screen.getAllByRole("listitem").length;
 
     expect(boardCount).toBe(numberOfBoards);
+  });
+
+  it("handles no boards being passed to it", () => {
+    cleanup();
+    render(<BoardList />);
+
+    const message = screen.queryByRole("paragraph", {
+      name: "Empty board list",
+    });
+
+    expect(message).toBeTruthy();
+  });
+
+  it("handles an empty board list being passed to it", () => {
+    cleanup();
+    render(<BoardList boards={[]} />);
+
+    const message = screen.queryByRole("paragraph", {
+      name: "Empty board list",
+    });
+
+    expect(message).toBeTruthy();
   });
 });
