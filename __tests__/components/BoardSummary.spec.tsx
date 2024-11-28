@@ -33,7 +33,9 @@ describe("BoardSummary", () => {
 
   it("displays the board creator's name", () => {
     const boardHeadingGroup = screen.getByRole("group");
-    const boardCreatedBy = within(boardHeadingGroup).queryByRole("paragraph");
+    const boardCreatedBy = within(boardHeadingGroup).queryByRole("paragraph", {
+      name: "Created by",
+    });
 
     expect(boardCreatedBy).toHaveTextContent(board.createdBy);
   });
@@ -44,5 +46,37 @@ describe("BoardSummary", () => {
     });
 
     expect(boardDescription).toHaveTextContent(board.description);
+  });
+
+  it("wraps the board's title in a link", () => {
+    const boardLink = screen.queryByRole("link", {
+      name: board.title,
+    });
+
+    expect(boardLink).toBeTruthy();
+  });
+
+  it("links the board's title to its detail page", () => {
+    const boardLink = screen.getByRole("link", {
+      name: board.title,
+    });
+
+    expect(boardLink).toHaveAttribute("href", board.id);
+  });
+
+  it("wraps the board's author in a link", () => {
+    const boardAuthorLink = screen.getByRole("link", {
+      name: board.createdBy,
+    });
+
+    expect(boardAuthorLink).toBeTruthy();
+  });
+
+  it("links the board's author to its author page", () => {
+    const boardAuthorLink = screen.getByRole("link", {
+      name: board.createdBy,
+    });
+
+    expect(boardAuthorLink).toHaveAttribute("href", `users/${board.createdBy}`);
   });
 });
