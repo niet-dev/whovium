@@ -10,12 +10,14 @@ test.describe("The Whovium home page", () => {
   });
 
   test("Contains the title of the website", async ({ page }) => {
-    const heading = page.getByRole("heading").first();
+    const heading = await page.getByRole("heading").first();
     expect(heading).toHaveText(/whovium/i);
   });
 
   test("Links to the board list page", async ({ page }) => {
-    const boardListLink = page.getByRole("link").filter({ hasText: /boards/i });
+    const boardListLink = await page
+      .getByRole("link")
+      .filter({ hasText: /boards/i });
     await boardListLink.click();
 
     await expect(page).toHaveURL(/.*boards/);
@@ -28,7 +30,12 @@ test.describe("The board list page", () => {
   });
 
   test("Contains the page heading", async ({ page }) => {
-    const heading = page.getByRole("heading").first();
+    const heading = await page.getByRole("heading").first();
     expect(heading).toHaveText(/boards/i);
+  });
+
+  test("Displays 10 boards", async ({ page }) => {
+    const boards = await page.getByRole("listitem").all();
+    expect(boards).toHaveLength(10);
   });
 });
