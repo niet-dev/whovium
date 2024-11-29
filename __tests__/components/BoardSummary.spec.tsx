@@ -7,6 +7,7 @@ import { Board } from "@/lib/types";
 describe("BoardSummary", () => {
   const board: Board = {
     id: faker.string.uuid(),
+    imgSrc: "https://placehold.co/300x300",
     title: faker.book.title(),
     createdBy: faker.book.author(),
     description: faker.lorem.sentences(2),
@@ -78,5 +79,17 @@ describe("BoardSummary", () => {
     });
 
     expect(boardAuthorLink).toHaveAttribute("href", `users/${board.createdBy}`);
+  });
+
+  it("displays an image", () => {
+    const boardImage = screen.queryByRole("img");
+
+    expect(boardImage).toBeTruthy();
+  });
+
+  it("displays an image with alt text containing the board's title", () => {
+    const boardImage = screen.getByRole("img");
+
+    expect(boardImage.getAttribute("alt")).toContain(board.title);
   });
 });

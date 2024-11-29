@@ -1,9 +1,19 @@
-import { Board } from "@/lib/types";
+import Image from "next/image";
 import Link from "next/link";
+
+import { Board } from "@/lib/types";
 
 const BoardSummary = ({ board }: { board: Board }) => {
   return (
     <article>
+      <section aria-label="Image container" className="relative h-[300px]">
+        <Image
+          src={board.imgSrc}
+          alt={`Image for ${board.title}`}
+          fill
+          priority
+        />
+      </section>
       <hgroup role="group">
         <h2>
           <Link href={board.id}>{board.title}</Link>
