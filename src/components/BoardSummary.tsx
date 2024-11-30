@@ -13,7 +13,7 @@ const BoardSummary = ({ board }: { board: Board }) => {
         <Image
           src={board.imgSrc}
           alt={`Image for ${board.title}`}
-          className="rounded-t-lg md:rounded-t-none md:rounded-l-lg "
+          className="rounded-t-lg md:rounded-t-none md:rounded-l-lg"
           fill
           priority
         />
@@ -24,7 +24,10 @@ const BoardSummary = ({ board }: { board: Board }) => {
       >
         <hgroup role="group" className="">
           <h2 className="text-xl font-bold md:text-2xl">
-            <Link href={board.id} className="text-pink-600 hover:text-pink-700">
+            <Link
+              href={`boards/${board.id}`}
+              className="text-pink-600 hover:text-pink-700"
+            >
               {board.title}
             </Link>
           </h2>
@@ -46,7 +49,7 @@ const BoardSummary = ({ board }: { board: Board }) => {
           className="flex justify-center md:justify-end"
         >
           <Link
-            href={board.id}
+            href={`boards/${board.id}`}
             className="w-full md:w-32 py-2 px-4 bg-sky-500 text-white text-center text-md font-bold rounded-full shadow-md hover:opacity-90"
           >
             Play

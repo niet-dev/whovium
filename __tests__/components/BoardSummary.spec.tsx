@@ -62,7 +62,7 @@ describe("BoardSummary", () => {
       name: board.title,
     });
 
-    expect(boardLink).toHaveAttribute("href", board.id);
+    expect(boardLink).toHaveAttribute("href", `boards/${board.id}`);
   });
 
   it("wraps the board's author in a link", () => {
@@ -91,5 +91,17 @@ describe("BoardSummary", () => {
     const boardImage = screen.getByRole("img");
 
     expect(boardImage.getAttribute("alt")).toContain(board.title);
+  });
+
+  it("displays a play button", () => {
+    const playButton = screen.queryByRole("link", { name: "Play" });
+
+    expect(playButton).toBeTruthy();
+  });
+
+  it("links the play button to its board's detail page", () => {
+    const playButton = screen.getByRole("link", { name: "Play" });
+
+    expect(playButton).toHaveAttribute("href", `boards/${board.id}`);
   });
 });
