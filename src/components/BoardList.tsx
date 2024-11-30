@@ -6,7 +6,7 @@ const BoardList = ({ boards }: { boards: Board[] }) => {
   }
 
   return (
-    <ul>
+    <ul className="space-y-16 my-16">
       {boards.map((board) => (
         <li key={board.id}>
           <BoardSummary board={board} />
