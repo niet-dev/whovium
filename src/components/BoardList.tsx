@@ -1,6 +1,9 @@
+import { fetchBoardList } from "@/lib/actions";
 import BoardSummary from "./BoardSummary";
 
-const BoardList = ({ boards }: { boards: Board[] }) => {
+const BoardList = async ({ query }: { query: string }) => {
+  const boards = await fetchBoardList(query);
+
   if (!boards || boards.length === 0) {
     return <p aria-label="Empty board list">No data available.</p>;
   }
