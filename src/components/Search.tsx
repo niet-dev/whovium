@@ -25,6 +25,7 @@ const Search = ({ placeholder }: { placeholder: string }) => {
         type="search"
         placeholder={placeholder}
         onChange={(e) => handleSearch(e.target.value)}
+        defaultValue={searchParams.get("query")?.toString()}
       />
       <MagnifyingGlassIcon />
     </div>
