@@ -1,14 +1,27 @@
 import BoardList from "@/components/BoardList";
+import Search from "@/components/Search";
 import { fetchBoardList } from "@/lib/actions";
 
-const BoardListPage = async () => {
-  const boards = await fetchBoardList();
+type BoardListPageProps = {
+  searchParams?: Promise<{
+    query?: string;
+  }>;
+};
+
+const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
+  const query = (await searchParams)?.query || "";
+  const boards = await fetchBoardList(query);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mt-16 text-center lg:text-left lg:px-[25%] lg:mx-auto">
+    <div className="container mx-auto">
+      <h1 className="text-2xl font-bold my-16 text-center lg:text-left">
         Boards
       </h1>
+      <div className="flex justify-center">
+        <div className="w-6/12">
+          <Search placeholder="Search..." />
+        </div>
+      </div>
       <BoardList boards={boards} />
     </div>
   );
