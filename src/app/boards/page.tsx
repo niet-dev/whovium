@@ -1,6 +1,7 @@
 import BoardList from "@/components/BoardList";
+import BoardListSkeleton from "@/components/BoardListSkeleton";
 import Search from "@/components/Search";
-import { fetchBoardList } from "@/lib/actions";
+import { Suspense } from "react";
 
 type BoardListPageProps = {
   searchParams?: Promise<{
@@ -10,7 +11,6 @@ type BoardListPageProps = {
 
 const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
   const query = (await searchParams)?.query || "";
-  const boards = await fetchBoardList(query);
 
   return (
     <div className="container mx-auto">
@@ -22,7 +22,9 @@ const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
           <Search placeholder="Search..." />
         </div>
       </div>
-      <BoardList boards={boards} />
+      <Suspense fallback={<BoardListSkeleton />}>
+        <BoardList query={query} />
+      </Suspense>
     </div>
   );
 };

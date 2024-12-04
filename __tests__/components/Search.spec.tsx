@@ -12,6 +12,10 @@ jest.mock("next/navigation", () => ({
   usePathname: () => "/mocked-pathname",
 }));
 
+jest.mock("use-debounce", () => ({
+  useDebouncedCallback: (callback) => callback,
+}));
+
 describe("Search", () => {
   it("renders to the screen", () => {
     render(<Search placeholder={placeholderText} />);
