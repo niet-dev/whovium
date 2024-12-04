@@ -17,8 +17,12 @@
     "stub-server:seed": "curl http://localhost:8080/?_seed=true",
     "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true"
   },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.0.1",
     "axios": "^1.7.8",
     "next": "15.0.3",
     "react": "^18",
@@ -44,6 +48,7 @@
     "json-server": "^0.17.4",
     "postcss": "^8",
     "prettier": "3.3.3",
+    "prisma": "^6.0.1",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5"
