@@ -18,7 +18,8 @@
     "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma"
+    "schema": "src/prisma/schema.prisma",
+    "seed": "tsx src/prisma/seed.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
