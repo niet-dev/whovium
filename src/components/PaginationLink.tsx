@@ -16,7 +16,7 @@ const PaginationLink = ({ href, disabled, direction }: PaginationLinkProps) => {
     );
 
   return disabled ? (
-    <div aria-label={`Disabled ${direction} page link`}>{arrowIcon}</div>
+    <div aria-label={`disabled ${direction} page link`}>{arrowIcon}</div>
   ) : (
     <Link href={href} aria-label={`${direction} page link`}>
       {arrowIcon}
