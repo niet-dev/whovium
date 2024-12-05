@@ -1,11 +1,15 @@
 import { fetchBoardList } from "@/lib/data";
 import BoardSummary from "./BoardSummary";
 
-const BoardList = async ({ query }: { query: string }) => {
-  const boards = await fetchBoardList(query);
+const BoardList = async ({ query, page }: { query: string; page: number }) => {
+  const boards = await fetchBoardList(query, page);
 
   if (!boards || boards.length === 0) {
-    return <p aria-label="Empty board list">No data available.</p>;
+    return (
+      <p aria-label="Empty board list" className="text-center my-16">
+        No data available.
+      </p>
+    );
   }
 
   return (

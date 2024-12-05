@@ -2,8 +2,9 @@ import prisma from "./prisma";
 
 const ITEMS_PER_PAGE = 10;
 
-export const fetchBoardList = async (query: string) => {
+export const fetchBoardList = async (query: string, page: number) => {
   const res = await prisma.board.findMany({
+    skip: ITEMS_PER_PAGE * (page - 1),
     take: ITEMS_PER_PAGE,
     where: {
       title: {
