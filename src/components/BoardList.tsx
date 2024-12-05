@@ -1,4 +1,4 @@
-import { fetchBoardList } from "@/lib/actions";
+import { fetchBoardList } from "@/lib/data";
 import BoardSummary from "./BoardSummary";
 
 const BoardList = async ({ query }: { query: string }) => {
