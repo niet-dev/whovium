@@ -10,16 +10,21 @@ interface PaginationLinkProps {
 const PaginationLink = ({ href, disabled, direction }: PaginationLinkProps) => {
   const arrowIcon =
     direction === "left" ? (
-      <ArrowLeftIcon aria-label="Left arrow icon" />
+      <ArrowLeftIcon aria-label="Left arrow icon" className="w-4" />
     ) : (
-      <ArrowRightIcon aria-label="Right arrow icon" />
+      <ArrowRightIcon aria-label="Right arrow icon" className="w-4" />
     );
 
   return disabled ? (
-    <div aria-label={`disabled ${direction} page link`}>{arrowIcon}</div>
+    <div
+      aria-label={`disabled ${direction} page link`}
+      className="border rounded-md p-2"
+    >
+      {arrowIcon}
+    </div>
   ) : (
     <Link href={href} aria-label={`${direction} page link`}>
-      {arrowIcon}
+      <div className="border rounded-md p-2">{arrowIcon}</div>
     </Link>
   );
 };
