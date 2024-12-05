@@ -34,10 +34,10 @@ const BoardSummary = ({ board }: { board: Board }) => {
           <p aria-label="Created by" className="text-gray-600">
             by{" "}
             <Link
-              href={`users/${board.createdBy}`}
+              href={`users/${board.createdBy.username}`}
               className="underline decoration-2 decoration-pink-300 hover:decoration-pink-400"
             >
-              {board.createdBy}
+              {board.createdBy.username}
             </Link>
           </p>
         </hgroup>

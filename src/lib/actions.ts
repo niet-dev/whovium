@@ -1,13 +1,20 @@
-import axios from "axios";
+import prisma from "./prisma";
 
 export const fetchBoardList = async (query: string) => {
-  try {
-    const search = query ? `&title=${query}` : "";
-    const res = await axios.get(
-      `http://localhost:8080/boards?_page=1${search}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.error(err);
-  }
+  const res = await prisma.board.findMany({
+    take: 10,
+    where: {
+      title: {
+        contains: query,
+        mode: "insensitive",
+      },
+    },
+    include: {
+      createdBy: true,
+    },
+    orderBy: {
+      title: "asc",
+    },
+  });
+  return res;
 };

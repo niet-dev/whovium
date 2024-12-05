@@ -6,10 +6,13 @@ import { Board } from "@/lib/types";
 
 describe("BoardSummary", () => {
   const board: Board = {
-    id: faker.string.uuid(),
+    id: faker.number.int(100),
     imgSrc: "https://placehold.co/300x300",
     title: faker.book.title(),
-    createdBy: faker.book.author(),
+    createdBy: {
+      username: faker.internet.username(),
+      id: faker.number.int(100),
+    },
     description: faker.lorem.sentences(2),
   };
 
@@ -38,7 +41,7 @@ describe("BoardSummary", () => {
       name: "Created by",
     });
 
-    expect(boardCreatedBy).toHaveTextContent(board.createdBy);
+    expect(boardCreatedBy).toHaveTextContent(board.createdBy.username);
   });
 
   it("displays the board's description", () => {
@@ -67,7 +70,7 @@ describe("BoardSummary", () => {
 
   it("wraps the board's author in a link", () => {
     const boardAuthorLink = screen.getByRole("link", {
-      name: board.createdBy,
+      name: board.createdBy.username,
     });
 
     expect(boardAuthorLink).toBeTruthy();
@@ -75,10 +78,13 @@ describe("BoardSummary", () => {
 
   it("links the board's author to its author page", () => {
     const boardAuthorLink = screen.getByRole("link", {
-      name: board.createdBy,
+      name: board.createdBy.username,
     });
 
-    expect(boardAuthorLink).toHaveAttribute("href", `users/${board.createdBy}`);
+    expect(boardAuthorLink).toHaveAttribute(
+      "href",
+      `users/${board.createdBy.username}`,
+    );
   });
 
   it("displays an image", () => {
