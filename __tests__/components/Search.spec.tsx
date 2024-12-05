@@ -1,16 +1,12 @@
 import Search from "@/components/Search";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  mockedQuery,
+  routerReplaceMock,
+} from "../../__mocks__/next/navigation";
 
-const defaultQuery = "test";
 const placeholderText = "Placeholder text...";
-
-const replaceMock = jest.fn();
-jest.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: replaceMock }),
-  useSearchParams: () => new URLSearchParams({ query: defaultQuery }),
-  usePathname: () => "/mocked-pathname",
-}));
 
 jest.mock("use-debounce", () => ({
   useDebouncedCallback: (callback) => callback,
@@ -41,7 +37,7 @@ describe("Search", () => {
     await user.click(searchComponent);
     await user.keyboard(textToTest);
 
-    expect(replaceMock).toHaveBeenCalledTimes(1);
+    expect(routerReplaceMock).toHaveBeenCalledTimes(1);
   });
 
   it("adds query parameters based on inputted text", async () => {
@@ -54,7 +50,7 @@ describe("Search", () => {
     await user.click(searchComponent);
     await user.keyboard(textToTest);
 
-    expect(replaceMock).toHaveBeenLastCalledWith(
+    expect(routerReplaceMock).toHaveBeenLastCalledWith(
       expect.stringContaining(`?query=${textToTest}`),
     );
   });
@@ -66,11 +62,11 @@ describe("Search", () => {
     const searchComponent = screen.getByRole("searchbox");
 
     await user.click(searchComponent);
-    for (let i = 0; i < defaultQuery.length; i++) {
+    for (let i = 0; i < mockedQuery.length; i++) {
       await user.keyboard("{Backspace}");
     }
 
-    expect(replaceMock).toHaveBeenLastCalledWith(
+    expect(routerReplaceMock).toHaveBeenLastCalledWith(
       expect.not.stringContaining("query"),
     );
   });
