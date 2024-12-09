@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { fetchCardsByBoardId } from "@/lib/data";
+import GameCard from "./GameCard";
 
 const GameCardList = async ({ id }: { id: number }) => {
   const cards = await fetchCardsByBoardId(id);
@@ -8,15 +7,7 @@ const GameCardList = async ({ id }: { id: number }) => {
   return (
     <ul>
       {cards.map((card) => (
-        <li key={card.id}>
-          <Image
-            src={card.imgSrc}
-            alt={`Image for ${card.name}`}
-            width={100}
-            height={100}
-          />
-          <h2>{card.name}</h2>
-        </li>
+        <GameCard key={card.id} card={card} />
       ))}
     </ul>
   );
