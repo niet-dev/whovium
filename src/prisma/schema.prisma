@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Board {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String   @db.VarChar(255)
+  imgSrc      String?  @db.VarChar(255)
+  description String   @default("No description available.") @db.VarChar(500)
+  createdBy   User     @relation(fields: [userId], references: [id])
+  userId      Int
+  cards       Card[]
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique @db.VarChar(63)
+  boards   Board[]
+}
+
+model Card {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique @db.VarChar(100)
+  imgSrc  String? @db.VarChar(255)
+  board   Board   @relation(fields: [boardId], references: [id])
+  boardId Int
+}

@@ -8,6 +8,7 @@ export const seedBoards = (numBoards: number): Board[] => {
   for (let i = 0; i < numBoards; i++) {
     boardList.push({
       id: faker.string.uuid(),
+      imgSrc: "https://placehold.co/300x300",
       title: faker.book.title(),
       createdBy: faker.book.author(),
       description: faker.lorem.sentences(2),

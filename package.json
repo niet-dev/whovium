@@ -15,12 +15,22 @@
     "e2e:debug": "npx playwright test --debug",
     "stub-server": "tsx ./src/stub-server/index.ts",
     "stub-server:seed": "curl http://localhost:8080/?_seed=true",
-    "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true"
+    "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true",
+    "prisma:reset": "dotenv -e .env.development.local -- npx prisma migrate reset"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma",
+    "seed": "tsx src/prisma/seed.ts"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.0.1",
+    "axios": "^1.7.8",
+    "clsx": "^2.1.1",
     "next": "15.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -28,6 +38,7 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -40,6 +51,7 @@
     "json-server": "^0.17.4",
     "postcss": "^8",
     "prettier": "3.3.3",
+    "prisma": "^6.0.1",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5"
