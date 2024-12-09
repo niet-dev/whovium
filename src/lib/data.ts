@@ -35,3 +35,12 @@ export const fetchBoardPages = async (query: string) => {
   const pageCount = Math.ceil(res / ITEMS_PER_PAGE);
   return pageCount;
 };
+
+export const fetchCardsByBoardId = async (id: number) => {
+  const res = await prisma.card.findMany({
+    where: {
+      boardId: id,
+    },
+  });
+  return res;
+};
