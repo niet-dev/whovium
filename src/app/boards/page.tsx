@@ -19,19 +19,19 @@ const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold my-16 text-center lg:text-left">
+      <h1 className="text-xl font-bold my-8 text-center lg:w-10/12 lg:text-left lg:px-4 2xl:text-2xl">
         Boards
       </h1>
-      <div className="flex justify-center mb-16">
-        <div className="w-6/12">
-          <Search placeholder="Search..." />
-        </div>
+      <div className="flex flex-col gap-4 items-center md:flex-row md:justify-center">
+        <Search placeholder="Search..." />
+        <Pagination pageCount={pageCount} />
       </div>
-      <Pagination pageCount={pageCount} />
       <Suspense fallback={<BoardListSkeleton />}>
         <BoardList query={query} page={page} />
       </Suspense>
-      <Pagination pageCount={pageCount} />
+      <div className="my-8">
+        <Pagination pageCount={pageCount} />
+      </div>
     </div>
   );
 };
