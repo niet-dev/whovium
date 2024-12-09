@@ -19,6 +19,7 @@ export const fetchBoardList = async (query: string, page: number) => {
       title: "asc",
     },
   });
+
   return res;
 };
 
@@ -31,8 +32,8 @@ export const fetchBoardPages = async (query: string) => {
       },
     },
   });
-
   const pageCount = Math.ceil(res / ITEMS_PER_PAGE);
+
   return pageCount;
 };
 
@@ -42,5 +43,16 @@ export const fetchCardsByBoardId = async (id: number) => {
       boardId: id,
     },
   });
+
+  return res;
+};
+
+export const fetchBoardById = async (id: number) => {
+  const res = await prisma.board.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
   return res;
 };
