@@ -1,6 +1,7 @@
 "use client";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -23,6 +24,17 @@ const Search = ({ placeholder }: { placeholder: string }) => {
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
+  const inputClsx = clsx(
+    "peer w-full rounded-md py-[9px] pl-10 text-sm placeholder:text-gray-500",
+    "focus:outline focus:outline-pink-500",
+    "border border-gray-200 hover:border-gray-300",
+  );
+
+  const iconClsx = clsx(
+    "absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2",
+    "text-gray-500 peer-focus:text-gray-900",
+  );
+
   return (
     <div
       role="search"
@@ -33,9 +45,9 @@ const Search = ({ placeholder }: { placeholder: string }) => {
         placeholder={placeholder}
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("query")?.toString()}
-        className="peer w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm focus:outline focus:outline-pink-500 placeholder:text-gray-500"
+        className={inputClsx}
       />
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+      <MagnifyingGlassIcon className={iconClsx} />
     </div>
   );
 };
