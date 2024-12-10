@@ -52,6 +52,9 @@ export const fetchBoardById = async (id: number) => {
     where: {
       id: id,
     },
+    include: {
+      createdBy: true,
+    },
   });
 
   return res;
