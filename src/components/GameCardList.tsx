@@ -5,7 +5,7 @@ const GameCardList = async ({ id }: { id: number }) => {
   const cards = await fetchCardsByBoardId(id);
 
   return (
-    <ul>
+    <ul className="flex gap-2 justify-center">
       {cards.map((card) => (
         <GameCard key={card.id} card={card} />
       ))}

@@ -6,13 +6,17 @@ import { Card } from "@prisma/client";
 const GameCard = ({ card }: { card: Card }) => {
   return (
     <li>
-      <Image
-        src={card.imgSrc}
-        alt={`Image for ${card.name}`}
-        width={100}
-        height={100}
-      />
-      <h2>{card.name}</h2>
+      <div className="h-[350px] w-[250px] relative rounded-lg shadow-inner">
+        <Image
+          src="https://placehold.co/250x350"
+          alt={`Image for ${card.name}`}
+          fill
+          className="-z-50 rounded-lg"
+        />
+      </div>
+      <div className="w-[250px] text-center">
+        <h2 className="">{card.name}</h2>
+      </div>
     </li>
   );
 };
