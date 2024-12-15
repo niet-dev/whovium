@@ -5,7 +5,7 @@ const BoardPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = Number((await params).id);
 
   return (
-    <main>
+    <main className="container mx-auto">
       <BoardDetails id={id} />
       <GameCardList id={id} />
     </main>
