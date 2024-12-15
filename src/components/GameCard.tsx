@@ -14,7 +14,7 @@ const GameCard = ({ card }: { card: GameCardType }) => {
           className="-z-10 rounded-lg"
         />
       </div>
-      <div className="text-center">
+      <div className="text-center py-1">
         <h2 className="">{card.name}</h2>
       </div>
     </div>
