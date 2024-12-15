@@ -16,7 +16,8 @@
     "stub-server": "tsx ./src/stub-server/index.ts",
     "stub-server:seed": "curl http://localhost:8080/?_seed=true",
     "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true",
-    "prisma:reset": "dotenv -e .env.development.local -- npx prisma migrate reset"
+    "prisma:reset": "dotenv -e .env.development.local -- npx prisma migrate reset",
+    "prisma:migrate-dev": "dotenv -e .env.development.local -- npx prisma migrate dev"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma",
