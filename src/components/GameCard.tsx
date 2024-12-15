@@ -8,8 +8,8 @@ const GameCard = ({ card }: { card: GameCardType }) => {
     <div className="flex flex-col justify-center gap-2">
       <div className="relative h-[350px] w-[250px] rounded-lg shadow-inner">
         <Image
-          src="https://placehold.co/250x350"
-          alt={`Image for ${card.name}`}
+          src={card.imgSrc}
+          alt={`Image for card ${card.name}`}
           fill
           className="-z-10 rounded-lg"
         />

@@ -28,14 +28,16 @@ const seedBoards = async (numUsers: number, numBoards: number) => {
 };
 
 const seedCards = async (numBoards: number, numCards: number) => {
-  for (let i = 0; i < numCards; i++) {
-    await prisma.card.create({
-      data: {
-        name: faker.person.fullName(),
-        imgSrc: "https://placehold.co/100x100",
-        boardId: Math.floor(Math.random() * numBoards + 1),
-      },
-    });
+  for (let i = 0; i < numBoards; i++) {
+    for (let j = 0; j < numCards; j++) {
+      await prisma.card.create({
+        data: {
+          name: faker.person.fullName(),
+          imgSrc: "https://placehold.co/250x350",
+          boardId: i + 1,
+        },
+      });
+    }
   }
 };
 
@@ -55,7 +57,7 @@ const seedDb = async ({
   faker.seed();
 };
 
-seedDb({ numUsers: 20, numBoards: 100, numCards: 500 })
+seedDb({ numUsers: 20, numBoards: 100, numCards: 30 })
   .then(async () => {
     await prisma.$disconnect();
   })
