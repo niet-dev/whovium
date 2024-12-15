@@ -4,7 +4,7 @@ import GameCard from "./GameCard";
 
 const GameCardGrid = ({ cards }: { cards: GameCardType[] }) => {
   return (
-    <div className="grid grid-cols-4 gap-4 py-4">
+    <div className="grid grid-cols-4 gap-4 py-8 2xl:grid-cols-5">
       {cards.map((card) => (
         <div key={card.id} className="flex justify-center items-center">
           <GameCard key={card.id} card={card} />
