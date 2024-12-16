@@ -13,9 +13,6 @@
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "e2e:debug": "npx playwright test --debug",
-    "stub-server": "tsx ./src/stub-server/index.ts",
-    "stub-server:seed": "curl http://localhost:8080/?_seed=true",
-    "stub-server:cleanup": "curl -X DELETE http://localhost:8080/?_cleanup=true",
     "prisma:reset": "dotenv -e .env.development.local -- npx prisma migrate reset",
     "prisma:migrate-dev": "dotenv -e .env.development.local -- npx prisma migrate dev"
   },
@@ -55,7 +52,6 @@
     "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "json-server": "^0.17.4",
     "postcss": "^8",
     "prettier": "3.3.3",
     "prisma": "^6.0.1",
