@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("The Whovium home page", () => {
   test("has the website title set appropriately", async ({ page }) => {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import type { Card as GameCardType } from "@prisma/client";
 
 import {
@@ -9,6 +10,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+
 import GameCard from "./GameCard";
 
 const GameCardCarousel = ({ cards }: { cards: GameCardType[] }) => {
@@ -33,13 +35,13 @@ const GameCardCarousel = ({ cards }: { cards: GameCardType[] }) => {
     <>
       <Carousel
         setApi={setApi}
-        className="w-full container mx-auto"
+        className="container mx-auto w-full"
         opts={{ dragFree: true, loop: true }}
       >
         <CarouselContent>
           {cards.map((card) => (
             <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
-              <div className="p-1 flex items-center justify-center h-[400px]">
+              <div className="flex h-[400px] items-center justify-center p-1">
                 <GameCard card={card} />
               </div>
             </CarouselItem>

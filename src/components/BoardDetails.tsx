@@ -1,5 +1,6 @@
-import { fetchBoardById } from "@/lib/data";
 import Image from "next/image";
+
+import { fetchBoardById } from "@/lib/data";
 
 const BoardDetails = async ({ id }: { id: number }) => {
   const board = await fetchBoardById(id);

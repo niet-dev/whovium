@@ -2,7 +2,7 @@ import BoardSummarySkeleton from "./BoardSummarySkeleton";
 
 const BoardListSkeleton = () => {
   return (
-    <ul className="space-y-16 my-16">
+    <ul className="my-16 space-y-16">
       {Array(3)
         .fill(null)
         .map((el, i) => {

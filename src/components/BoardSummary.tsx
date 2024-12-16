@@ -5,7 +5,7 @@ import { Board } from "@/lib/types";
 
 const BoardSummary = ({ board }: { board: Board }) => {
   return (
-    <article className="w-[300px] mx-auto border rounded-lg shadow-xl xl:w-full xl:h-[300px] xl:flex">
+    <article className="mx-auto w-[300px] rounded-lg border shadow-xl xl:flex xl:h-[300px] xl:w-full">
       <section
         aria-label="Image container"
         className="relative h-[300px] w-[300px] md:flex-none"
@@ -13,14 +13,14 @@ const BoardSummary = ({ board }: { board: Board }) => {
         <Image
           src={board.imgSrc}
           alt={`Image for ${board.title}`}
-          className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
+          className="rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
           fill
           priority
         />
       </section>
       <section
         aria-label="Board details"
-        className="p-6 h-[300px] flex flex-col justify-between"
+        className="flex h-[300px] flex-col justify-between p-6"
       >
         <hgroup role="group" className="">
           <h2 className="text-lg font-bold 2xl:text-xl">
@@ -33,12 +33,12 @@ const BoardSummary = ({ board }: { board: Board }) => {
           </h2>
           <p
             aria-label="Created by"
-            className="text-gray-600 text-sm 2xl:text-base"
+            className="text-sm text-gray-600 2xl:text-base"
           >
             by{" "}
             <Link
               href={`users/${board.createdBy.username}`}
-              className="underline decoration-2 decoration-pink-300 hover:decoration-pink-400"
+              className="underline decoration-pink-300 decoration-2 hover:decoration-pink-400"
             >
               {board.createdBy.username}
             </Link>
@@ -56,7 +56,7 @@ const BoardSummary = ({ board }: { board: Board }) => {
         <section aria-label="Button container" className="flex justify-center">
           <Link
             href={`boards/${board.id}`}
-            className="w-full py-2 px-4 bg-sky-500 text-sky-100 text-center text-lg font-bold rounded-full shadow-md hover:opacity-90 2xl:text-xl"
+            className="w-full rounded-full bg-sky-500 px-4 py-2 text-center text-lg font-bold text-sky-100 shadow-md hover:opacity-90 2xl:text-xl"
           >
             Play
           </Link>

@@ -1,6 +1,7 @@
 import { fetchCardsByBoardId } from "@/lib/data";
-import GameCardGrid from "./GameCardGrid";
+
 import GameCardCarousel from "./GameCardCarousel";
+import GameCardGrid from "./GameCardGrid";
 
 const GameCardList = async ({ id }: { id: number }) => {
   const cards = await fetchCardsByBoardId(id);

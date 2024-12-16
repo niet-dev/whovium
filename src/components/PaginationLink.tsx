@@ -1,5 +1,6 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
 interface PaginationLinkProps {
