@@ -1,6 +1,8 @@
-import Search from "@/components/Search";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
+import Search from "@/components/Search";
+
 import {
   mockedQuery,
   routerReplaceMock,

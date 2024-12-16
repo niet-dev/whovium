@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
+
 import PaginationLink from "./PaginationLink";
 
 const Pagination = ({ pageCount }: { pageCount: number }) => {
@@ -17,7 +18,7 @@ const Pagination = ({ pageCount }: { pageCount: number }) => {
   return (
     <section
       aria-label="Pagination"
-      className="flex justify-center items-center gap-4"
+      className="flex items-center justify-center gap-4"
     >
       <PaginationLink
         href={createPageURL(page - 1)}

@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import Pagination from "@/components/Pagination";
+
 import {
   mockedPathname,
   mockedQuery,

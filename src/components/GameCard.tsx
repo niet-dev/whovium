@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useAnimate } from "motion/react";
-import Image from "next/image";
-import type { Card as GameCardType } from "@prisma/client";
 import { useState } from "react";
+import Image from "next/image";
+
+import type { Card as GameCardType } from "@prisma/client";
+import { motion, useAnimate } from "motion/react";
 
 const GameCard = ({ card }: { card: GameCardType }) => {
   const [isSelected, setIsSelected] = useState(false);
@@ -34,11 +35,11 @@ const GameCard = ({ card }: { card: GameCardType }) => {
         />
         <div
           ref={scope}
-          className="bg-red-800 opacity-0 h-full rounded-lg -z-10"
+          className="-z-10 h-full rounded-lg bg-red-800 opacity-0"
         />
       </motion.div>
-      <div className="text-center py-1">
-        <h2 className="">{card.name}</h2>
+      <div className="py-1 text-center">
+        <h2>{card.name}</h2>
       </div>
     </div>
   );
