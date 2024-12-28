@@ -1,5 +1,5 @@
 import BoardDetails from "@/components/BoardDetails";
-import GameCardList from "@/components/GameCardList";
+import GameCardProvider from "@/components/GameCardProvider";
 
 const BoardPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = Number((await params).id);
@@ -7,7 +7,7 @@ const BoardPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <main className="container mx-auto">
       <BoardDetails id={id} />
-      <GameCardList id={id} />
+      <GameCardProvider id={id} />
     </main>
   );
 };
