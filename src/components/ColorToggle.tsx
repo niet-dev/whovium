@@ -1,13 +1,17 @@
+import { cn } from "@/lib/utils";
+
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
 const ColorToggle = ({
   handleColorChange,
+  className,
 }: {
   handleColorChange: (e: FormEvent<HTMLButtonElement>) => void;
+  className: string;
 }) => {
   return (
-    <div className="flex items-center space-x-2">
+    <div className={cn("mx-8 my-4 flex items-center space-x-2", className)}>
       <Switch
         onClick={handleColorChange}
         id="color-toggle"

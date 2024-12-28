@@ -21,7 +21,7 @@ const ColorWrapper = ({ cards }: { cards: GameCardType[] }) => {
       <div className="xl:hidden">
         <GameCardCarousel cards={cards} color={color} />
       </div>
-      <div className="invisible xl:visible">
+      <div className="hidden xl:block">
         <GameCardGrid cards={cards} color={color} />
       </div>
     </div>

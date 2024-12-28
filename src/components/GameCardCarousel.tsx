@@ -38,26 +38,24 @@ const GameCardCarousel = ({
   }, [api]);
 
   return (
-    <>
-      <Carousel
-        setApi={setApi}
-        className="container mx-auto w-full"
-        opts={{ dragFree: true, loop: true }}
-      >
-        <CarouselContent>
-          {cards.map((card) => (
-            <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
-              <div className="flex h-[400px] items-center justify-center p-1">
-                <GameCard card={card} color={color} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="py-1 text-center text-sm text-muted-foreground">
+    <Carousel
+      setApi={setApi}
+      className="container mx-auto mb-8 w-full rounded-lg border py-8 shadow-lg"
+      opts={{ dragFree: true, loop: true }}
+    >
+      <CarouselContent>
+        {cards.map((card) => (
+          <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
+            <div className="flex h-[400px] items-center justify-center p-1">
+              <GameCard card={card} color={color} />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="mt-2 text-center text-sm text-muted-foreground">
         {current} of {count}
       </div>
-    </>
+    </Carousel>
   );
 };
 
