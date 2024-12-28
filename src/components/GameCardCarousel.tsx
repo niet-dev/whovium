@@ -13,7 +13,13 @@ import {
 
 import GameCard from "./GameCard";
 
-const GameCardCarousel = ({ cards }: { cards: GameCardType[] }) => {
+const GameCardCarousel = ({
+  cards,
+  color,
+}: {
+  cards: GameCardType[];
+  color: "red" | "blue";
+}) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(1);
   const [count, setCount] = useState(0);
@@ -32,26 +38,24 @@ const GameCardCarousel = ({ cards }: { cards: GameCardType[] }) => {
   }, [api]);
 
   return (
-    <>
-      <Carousel
-        setApi={setApi}
-        className="container mx-auto w-full"
-        opts={{ dragFree: true, loop: true }}
-      >
-        <CarouselContent>
-          {cards.map((card) => (
-            <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
-              <div className="flex h-[400px] items-center justify-center p-1">
-                <GameCard card={card} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="py-1 text-center text-sm text-muted-foreground">
+    <Carousel
+      setApi={setApi}
+      className="container mx-auto mb-8 w-full rounded-lg border py-8 shadow-lg"
+      opts={{ dragFree: true, loop: true }}
+    >
+      <CarouselContent>
+        {cards.map((card) => (
+          <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
+            <div className="flex h-[400px] items-center justify-center p-1">
+              <GameCard card={card} color={color} />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="mt-2 text-center text-sm text-muted-foreground">
         {current} of {count}
       </div>
-    </>
+    </Carousel>
   );
 };
 
