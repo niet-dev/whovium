@@ -40,7 +40,7 @@ const GameCardCarousel = ({
   return (
     <Carousel
       setApi={setApi}
-      className="container mx-auto mb-8 w-full rounded-lg border py-8 shadow-lg"
+      className="container my-8 w-full rounded-lg border px-2 py-8 shadow-lg"
       opts={{ dragFree: true, loop: true }}
     >
       <CarouselContent>
