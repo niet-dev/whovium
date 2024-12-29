@@ -10,7 +10,7 @@ const GameCardGrid = ({
   color: "red" | "blue";
 }) => {
   return (
-    <div className="mb-8 grid grid-cols-4 gap-4 rounded-lg border py-8 shadow-lg 2xl:grid-cols-5">
+    <div className="my-8 grid grid-cols-4 gap-4 rounded-lg border py-8 shadow-lg 2xl:grid-cols-5">
       {cards.map((card) => (
         <div key={card.id} className="flex items-center justify-center">
           <GameCard key={card.id} card={card} color={color} />

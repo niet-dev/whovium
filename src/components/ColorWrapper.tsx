@@ -17,8 +17,11 @@ const ColorWrapper = ({ cards }: { cards: GameCardType[] }) => {
 
   return (
     <div>
-      <ColorToggle handleColorChange={(e) => handleColorChange(e)} />
-      <div className="xl:hidden">
+      <ColorToggle
+        handleColorChange={(e) => handleColorChange(e)}
+        className="flex justify-center"
+      />
+      <div className="mx-4 xl:hidden">
         <GameCardCarousel cards={cards} color={color} />
       </div>
       <div className="hidden xl:block">

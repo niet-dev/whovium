@@ -11,7 +11,12 @@ const ColorToggle = ({
   className: string;
 }) => {
   return (
-    <div className={cn("mx-8 my-4 flex items-center space-x-2", className)}>
+    <div
+      className={cn(
+        "mx-8 my-8 flex items-center space-x-2 lg:my-0 lg:mt-8",
+        className,
+      )}
+    >
       <Switch
         onClick={handleColorChange}
         id="color-toggle"
