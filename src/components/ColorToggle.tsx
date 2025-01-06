@@ -16,6 +16,7 @@ const ColorToggle = ({
         "mx-8 my-8 flex items-center space-x-2 lg:my-0 lg:mt-8",
         className,
       )}
+      aria-label="Color toggle switch container"
     >
       <Switch
         onClick={handleColorChange}

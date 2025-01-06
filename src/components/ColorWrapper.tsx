@@ -16,7 +16,7 @@ const ColorWrapper = ({ cards }: { cards: GameCardType[] }) => {
   };
 
   return (
-    <div>
+    <div aria-label="Color wrapper">
       <ColorToggle
         handleColorChange={(e) => handleColorChange(e)}
         className="flex justify-center"
