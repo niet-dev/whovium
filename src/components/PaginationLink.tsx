@@ -1,6 +1,8 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import clsx from "clsx";
+
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
+
+import { cn } from "@/lib/utils";
 
 interface PaginationLinkProps {
   href: string;
@@ -16,10 +18,9 @@ const PaginationLink = ({ href, disabled, direction }: PaginationLinkProps) => {
       <ArrowRightIcon aria-label="Right arrow icon" className="w-4" />
     );
 
-  const className = clsx(
-    "border rounded-md p-2",
-    disabled && "bg-gray-100 text-gray-400",
-    !disabled && "hover:border-gray-300",
+  const className = cn(
+    "rounded-md border p-2",
+    disabled ? "bg-gray-100 text-gray-400" : "hover:border-gray-300",
   );
 
   return disabled ? (

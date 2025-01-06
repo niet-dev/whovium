@@ -1,8 +1,8 @@
-import { render, screen, within } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
+import { render, screen, within } from "@testing-library/react";
 
-import BoardSummary from "@/components/BoardSummary";
 import { Board } from "@/lib/types";
+import BoardSummary from "@/components/BoardSummary";
 
 describe("BoardSummary", () => {
   const board: Board = {

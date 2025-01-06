@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "placehold.co",
-        pathname: "/300x300",
       },
     ],
   },

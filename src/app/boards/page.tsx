@@ -1,9 +1,10 @@
+import { Suspense } from "react";
+
+import { fetchBoardPages } from "@/lib/data";
 import BoardList from "@/components/BoardList";
 import BoardListSkeleton from "@/components/BoardListSkeleton";
 import Pagination from "@/components/Pagination";
 import Search from "@/components/Search";
-import { fetchBoardPages } from "@/lib/data";
-import { Suspense } from "react";
 
 type BoardListPageProps = {
   searchParams?: Promise<{
@@ -19,10 +20,10 @@ const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-xl font-bold my-8 text-center lg:w-10/12 lg:text-left lg:px-4 2xl:text-2xl">
+      <h1 className="my-8 text-center text-xl font-bold lg:w-10/12 lg:px-4 lg:text-left 2xl:text-2xl">
         Boards
       </h1>
-      <div className="flex flex-col gap-4 items-center md:flex-row md:justify-center">
+      <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <Search placeholder="Search..." />
         <Pagination pageCount={pageCount} />
       </div>
