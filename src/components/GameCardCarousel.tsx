@@ -14,7 +14,7 @@ import {
 import GameCard from "./GameCard";
 
 const GameCardCarousel = ({
-  cards,
+  cards = [],
   color,
 }: {
   cards: GameCardType[];

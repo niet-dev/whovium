@@ -8,13 +8,12 @@ import { motion, useAnimate } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
-const GameCard = ({
-  card,
-  color,
-}: {
+export type GameCardProps = {
   card: GameCardType;
   color: "red" | "blue";
-}) => {
+};
+
+const GameCard = ({ card, color }: GameCardProps) => {
   const [isSelected, setIsSelected] = useState(false);
   const [scope, animate] = useAnimate();
 
@@ -29,11 +28,16 @@ const GameCard = ({
   };
 
   return (
-    <div className="flex flex-col justify-center gap-2">
+    <div
+      aria-label={card.name}
+      data-testid="Game card"
+      className="flex flex-col justify-center gap-2"
+    >
       <motion.div
         onClick={handleClick}
         className="relative h-[350px] w-[250px] rounded-lg shadow-inner"
         whileHover={{ y: -5 }}
+        data-testid="motion div"
       >
         <Image
           src={card.imgSrc}
