@@ -35,7 +35,8 @@ model Card {
 
 model User {
   id       Int       @id @default(autoincrement())
-  username String    @unique @db.VarChar(63)
+  githubId Int
+  username String    @unique
   boards   Board[]
   sessions Session[]
 }
