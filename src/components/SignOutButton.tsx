@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 export default async function SignOutButton() {
   return (
     <form action={signout}>
-      <Button>Sign out</Button>
+      <Button variant="outline">Sign out</Button>
     </form>
   );
 }
