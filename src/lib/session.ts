@@ -1,3 +1,6 @@
+import { cache } from "react";
+import { cookies } from "next/headers";
+
 import { sha256 } from "@oslojs/crypto/sha2";
 import {
   encodeBase32LowerCaseNoPadding,
@@ -75,6 +78,42 @@ export async function validateSessionToken(
 export async function invalidateSession(sessionId: string): Promise<void> {
   await prisma.session.delete({ where: { id: sessionId } });
 }
+
+export async function setSessionTokenCookie(
+  token: string,
+  expiresAt: date,
+): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set("session", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    expires: expiresAt,
+    path: "/",
+  });
+}
+
+export async function deleteSessionTokenCookie(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set("session", "", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 0,
+    path: "/",
+  });
+}
+
+export const getCurrentSession = cache(async (): SessionValidationResult => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("session")?.value ?? null;
+  if (token === null) {
+    return { session: null, user: null };
+  }
+  const result = await validateSessionToken(token);
+
+  return result;
+});
 
 export type SessionValidationResult =
   | { session: Session; user: User }
