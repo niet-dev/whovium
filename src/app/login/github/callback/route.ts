@@ -33,8 +33,7 @@ export async function GET(request: Request): Promise<Response> {
   let tokens: OAuth2Tokens;
   try {
     tokens = await github.validateAuthorizationCode(code);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     // Invalid code or client credentials
     return new Response(null, {
       status: 400,
@@ -68,7 +67,7 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   // If the user is not already registered, create a new user
-  const user = prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       githubId: githubUserId,
       username: githubUsername,
