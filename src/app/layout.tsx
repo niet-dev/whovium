@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 
+import NavBar from "@/components/NavBar";
+
 import "./globals.css";
 
 const nunito = Nunito({
@@ -20,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${nunito.className} antialiased`}>{children}</body>
+      <body className={`${nunito.className} antialiased`}>
+        <NavBar />
+        <div>{children}</div>
+      </body>
     </html>
   );
 }
