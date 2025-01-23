@@ -8,6 +8,7 @@ const seedUsers = async (numUsers: number) => {
   for (let i = 0; i < numUsers; i++) {
     await prisma.user.create({
       data: {
+        githubId: faker.number.int(100000000),
         username: faker.internet.username(),
       },
     });

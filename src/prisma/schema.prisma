@@ -25,16 +25,25 @@ model Board {
   cards       Card[]
 }
 
-model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique @db.VarChar(63)
-  boards   Board[]
-}
-
 model Card {
   id      Int     @id @default(autoincrement())
   name    String  @db.VarChar(100)
   imgSrc  String? @db.VarChar(255)
   board   Board   @relation(fields: [boardId], references: [id])
   boardId Int
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  githubId Int       @unique
+  username String    @unique
+  boards   Board[]
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
