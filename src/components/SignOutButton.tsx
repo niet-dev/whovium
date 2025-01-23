@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
@@ -11,7 +12,9 @@ import { Button } from "./ui/button";
 export default async function SignOutButton() {
   return (
     <form action={signout}>
-      <Button variant="outline">Sign out</Button>
+      <Button variant="ghost" className="w-full">
+        Sign out
+      </Button>
     </form>
   );
 }
@@ -25,7 +28,8 @@ async function signout(): Promise<ActionResult> {
 
   await invalidateSession(session.id);
   await deleteSessionTokenCookie();
-  return redirect("/login");
+  revalidatePath("/login");
+  redirect("/login");
 }
 
 interface ActionResult {
