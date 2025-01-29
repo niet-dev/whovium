@@ -1,17 +1,18 @@
 import { redirect } from "next/navigation";
 
 import { getCurrentSession } from "@/lib/session";
-import SignOutButton from "@/components/SignOutButton";
+import BoardForm from "@/components/BoardForm";
 
 export default async function Page() {
   const { user } = await getCurrentSession();
   if (user === null) {
     return redirect("/login");
   }
+
   return (
-    <>
-      <h1>Hi, {user.username}!</h1>
-      <SignOutButton />
-    </>
+    <div className="container mx-auto">
+      <h1 className="text-3xl">Create a new board</h1>
+      <BoardForm />
+    </div>
   );
 }
