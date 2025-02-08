@@ -1,12 +1,12 @@
 "use server";
 
-import { NamedPreviewImage, PreviewImage } from "@/components/BoardForm";
+import type { NamedImage } from "@/components/BoardForm";
 
 type BoardData = {
   title: string;
   description: string;
-  coverImage: PreviewImage;
-  cardImages: NamedPreviewImage[];
+  coverImage: File;
+  cardImages: NamedImage[];
 };
 
 export async function createBoard(data: BoardData) {
@@ -14,7 +14,7 @@ export async function createBoard(data: BoardData) {
 
   formData.append("title", data.title);
   formData.append("description", data.description);
-  formData.append("cover-image", data.coverImage.file);
+  formData.append("cover-image", data.coverImage);
 
   data.cardImages.forEach((image) => {
     formData.append(`${image.name}`, image.file);

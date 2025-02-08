@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 
 import { createBoard } from "@/lib/actions";
@@ -8,47 +8,50 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export interface PreviewImage {
-  file: File;
-  path: string;
-}
-
-export interface NamedPreviewImage extends PreviewImage {
+export type NamedImage = {
+  id: number;
+  file: string;
   name: string;
-}
+};
 
 export default function BoardForm() {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [coverImage, setCoverImage] = useState<PreviewImage>(null);
-  const [cardImages, setCardImages] = useState<NamedPreviewImage[]>([]);
+  const [coverImage, setCoverImage] = useState<File>(null);
+  const [cardImages, setCardImages] = useState<NamedImage[]>([]);
+  const idIndexRef = useRef(0);
 
   function handleCoverImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setCoverImage({
-      file: e.target.files[0],
-      path: URL.createObjectURL(e.target.files[0]),
-    });
+    setCoverImage(e.target.files[0]);
   }
 
   function handleFilesChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const images = [];
-
-    for (let i = 0; i < e.target.files.length; i++) {
+    const images: NamedImage[] = [];
+    for (let i = 0; i < e.target.files?.length; i++) {
       images.push({
+        id: idIndexRef.current,
         file: e.target.files[i],
-        path: URL.createObjectURL(e.target.files[i]),
         name: "",
       });
+      idIndexRef.current++;
     }
-    setCardImages(images);
+    setCardImages([...cardImages, ...images]);
   }
 
-  function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleNameChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number,
+  ) {
     setCardImages(
-      cardImages.map((entry) =>
-        entry.path === e.target.id ? { ...entry, name: e.target.value } : entry,
-      ),
+      cardImages.map((image) => {
+        return image.id === id ? { ...image, name: e.target.value } : image;
+      }),
     );
+  }
+
+  function handleImageRemove(id: number) {
+    const images: NamedImage[] = cardImages.filter((image) => image.id !== id);
+    setCardImages(images);
   }
 
   return (
@@ -88,12 +91,14 @@ export default function BoardForm() {
             onChange={handleCoverImageChange}
           />
         </div>
-        {coverImage ? (
+        {coverImage && (
           <div className="relative h-48 w-48">
-            <Image src={coverImage.path} alt="cover image" fill />
+            <Image
+              src={URL.createObjectURL(coverImage)}
+              alt="cover image"
+              fill
+            />
           </div>
-        ) : (
-          <></>
         )}
         <div className="flex items-center space-x-2">
           <Label htmlFor="card-images">Card Images</Label>
@@ -106,20 +111,24 @@ export default function BoardForm() {
           />
         </div>
         {cardImages.map((image) => (
-          <div key={image.path} className="flex space-x-4">
-            <div key={image.path} className="relative h-48 w-48">
-              <Image src={image.path} alt="uploaded image" fill />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor={image.path}>Name</Label>
-              <Input
-                type="text"
-                id={image.path}
-                value={image.name}
-                placeholder="Enter a name..."
-                onChange={handleNameChange}
+          <div key={image.id} className="flex space-x-4">
+            <div className="relative h-48 w-48">
+              <Image
+                src={URL.createObjectURL(image.file)}
+                alt={image.file.name}
+                fill
               />
             </div>
+            <Button
+              variant="destructive"
+              onClick={() => handleImageRemove(image.id)}
+            >
+              Remove
+            </Button>
+            <Input
+              type="text"
+              onChange={(e) => handleNameChange(e, image.id)}
+            />
           </div>
         ))}
         <Button type="submit">Submit</Button>
