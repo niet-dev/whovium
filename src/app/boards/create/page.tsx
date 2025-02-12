@@ -11,7 +11,6 @@ export default async function Page() {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-3xl">Create a new board</h1>
       <BoardForm />
     </div>
   );
