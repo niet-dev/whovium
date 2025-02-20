@@ -1,5 +1,14 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+import {
+  deleteSessionTokenCookie,
+  getCurrentSession,
+  invalidateSession,
+} from "@/lib/session";
+
 type NamedImage = {
   file: File;
   name: string;
@@ -10,6 +19,10 @@ type BoardData = {
   description: string;
   cover: File;
   images: NamedImage[];
+};
+
+type ActionResult = {
+  error: string | null;
 };
 
 export async function createBoard(data: BoardData) {
@@ -30,4 +43,16 @@ export async function createBoard(data: BoardData) {
 
   const json = await res.json();
   return json;
+}
+
+export async function signout(): Promise<ActionResult> {
+  const { session } = await getCurrentSession();
+  if (!session) {
+    return { error: "Unauthorized" };
+  }
+
+  await invalidateSession(session.id);
+  await deleteSessionTokenCookie();
+  revalidatePath("/login");
+  redirect("/login");
 }
