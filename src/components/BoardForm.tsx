@@ -1,21 +1,30 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronsUpDown, X } from "lucide-react";
+import { ChevronsUpDown, Crop, X } from "lucide-react";
 import { useDropzone } from "react-dropzone";
+import type { FilerobotImageEditorConfig } from "react-filerobot-image-editor";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { cn } from "@/lib/utils";
+import { base64ImageToFile, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -34,6 +43,10 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Textarea } from "./ui/textarea";
+
+const ImageEditor = dynamic(() => import("@/components/ImageEditor"), {
+  ssr: false,
+});
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -72,7 +85,16 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+type ImageWithIndex = {
+  index: number;
+  file: File;
+};
+
 export default function BoardForm() {
+  const [editorField, setEditorField] = useState<ImageWithIndex>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const editedImageRef = useRef(null);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -112,6 +134,27 @@ export default function BoardForm() {
   function onSubmit(values: FormValues) {
     console.log(values);
   }
+
+  type savedImageData = {
+    imageBase64: string;
+    fullName: string;
+    mimeType: string;
+  };
+
+  function handleImageCropSave({
+    imageBase64,
+    fullName,
+    mimeType,
+  }: savedImageData) {
+    const imageFile = base64ImageToFile(imageBase64, fullName, mimeType);
+    form.setValue(`images.${editorField.index}.file`, imageFile);
+    setDialogOpen(false);
+  }
+
+  const imageEditorConfig: FilerobotImageEditorConfig = {
+    source: editorField ? URL.createObjectURL(editorField.file) : "",
+    getCurrentImgDataFnRef: editedImageRef,
+  };
 
   return (
     <div className="container mx-auto w-[600px]">
@@ -177,9 +220,11 @@ export default function BoardForm() {
                   <FormField
                     control={form.control}
                     name="cover"
-                    // value is intentionally not used to prevent the component from being uncontrolled
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                    render={({
+                      // value is intentionally not used to prevent the component from being uncontrolled
+                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                      field: { value, onChange, ...fieldProps },
+                    }) => (
                       <FormItem>
                         <FormControl>
                           <Input
@@ -248,7 +293,7 @@ export default function BoardForm() {
                             ),
                           })}
                         >
-                          <div className="mb-2 mt-2 flex items-center gap-x-3">
+                          <div className="mt-2 mb-2 flex items-center gap-x-3">
                             <label
                               htmlFor="images"
                               className={`cursor-pointer text-center text-sm text-[#7E8DA0]`}
@@ -304,15 +349,28 @@ export default function BoardForm() {
                               )}
                             />
                           </div>
-                          <div className="absolute right-2 top-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => remove(index)}
-                              className="text-red-500 hover:bg-red-50 hover:text-red-600"
-                            >
-                              <X />
-                            </Button>
+                          <div className="absolute top-2 right-2">
+                            <div className="flex flex-row-reverse">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => remove(index)}
+                                className="text-red-500 hover:bg-red-50 hover:text-red-600"
+                              >
+                                <X />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setEditorField({ index, file: field.file });
+                                  setDialogOpen(true);
+                                }}
+                              >
+                                <Crop />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -329,6 +387,27 @@ export default function BoardForm() {
           </form>
         </Form>
       </Card>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Crop</DialogTitle>
+            <DialogDescription>
+              Click and drag to crop the image. When you are done, click save.
+            </DialogDescription>
+          </DialogHeader>
+          <ImageEditor config={imageEditorConfig} />
+          <div className="flex justify-end">
+            <Button
+              className="bg-green-500 hover:bg-green-600"
+              onClick={() =>
+                handleImageCropSave(editedImageRef.current().imageData)
+              }
+            >
+              Save
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
