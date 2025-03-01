@@ -92,6 +92,8 @@ type ImageWithIndex = {
 
 export default function BoardForm() {
   const [editorField, setEditorField] = useState<ImageWithIndex>(null);
+  const [coverPreviewShown, setCoverPreviewShown] = useState(false);
+  const [coverPreviewURL, setCoverPreviewURL] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const editedImageRef = useRef(null);
 
@@ -155,6 +157,15 @@ export default function BoardForm() {
     source: editorField ? URL.createObjectURL(editorField.file) : "",
     getCurrentImgDataFnRef: editedImageRef,
   };
+
+  function onCoverImageChange() {
+    if (ACCEPTED_IMAGE_TYPES.includes(form.getValues("cover")?.type)) {
+      setCoverPreviewURL(URL.createObjectURL(form.getValues("cover")));
+      setCoverPreviewShown(true);
+    } else {
+      setCoverPreviewShown(false);
+    }
+  }
 
   return (
     <div className="container mx-auto w-[600px]">
@@ -233,6 +244,7 @@ export default function BoardForm() {
                             accept="image/*"
                             onChange={(e) => {
                               onChange(e.target.files && e.target.files[0]);
+                              onCoverImageChange();
                             }}
                           />
                         </FormControl>
@@ -240,15 +252,13 @@ export default function BoardForm() {
                       </FormItem>
                     )}
                   />
-                  {ACCEPTED_IMAGE_TYPES.includes(
-                    form.getValues("cover")?.type,
-                  ) && (
+                  {coverPreviewShown && (
                     <div className="my-8 flex justify-center">
                       <div>
                         <FormLabel htmlFor="cover">Preview</FormLabel>
                         <div className="relative h-48 w-48">
                           <Image
-                            src={URL.createObjectURL(form.getValues("cover"))}
+                            src={coverPreviewURL}
                             alt="cover image"
                             className="rounded-md shadow-md"
                             fill
