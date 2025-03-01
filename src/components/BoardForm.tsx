@@ -9,8 +9,12 @@ import { ChevronsUpDown, Crop, X } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import type { FilerobotImageEditorConfig } from "react-filerobot-image-editor";
 import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
 
+import {
+  ACCEPTED_IMAGE_TYPES,
+  createBoardFormSchema as formSchema,
+  type CreateBoardFormValues as FormValues,
+} from "@/lib/schema";
 import { base64ImageToFile, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,43 +51,6 @@ import { Textarea } from "./ui/textarea";
 const ImageEditor = dynamic(() => import("@/components/ImageEditor"), {
   ssr: false,
 });
-
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
-
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(2, { message: "Title must have at least 2 characters." })
-    .max(50, { message: "Title cannot have more than 50 characters." }),
-  description: z
-    .string()
-    .min(2, { message: "Description must have at least 2 characters." })
-    .max(255, { message: "Description cannot have more than 255 characters." }),
-  cover: z
-    .any()
-    .refine((file) => file !== null, { message: "Cover is required." })
-    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-      message: "Cover must be of type *.jpeg, *.jpg, *.png",
-    }),
-  images: z
-    .array(
-      z.object({
-        file: z
-          .any()
-          .refine((file) => file !== null, { message: "Image is required." })
-          .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-            message: "Image must be of type *.jpeg, *.jpg, *.png",
-          }),
-        name: z
-          .string()
-          .min(2, { message: "Name must have at least 2 characters." })
-          .max(100, { message: "Name cannot have more than 100 characters." }),
-      }),
-    )
-    .nonempty({ message: "Board must have at least one card." }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
 
 interface EditorImage {
   file: File;
@@ -155,6 +122,7 @@ export default function BoardForm() {
     mimeType,
   }: savedImageData) {
     const imageFile = base64ImageToFile(imageBase64, fullName, mimeType);
+
     if (editorImage.index !== undefined) {
       form.setValue(`images.${editorImage.index}.file`, imageFile);
     } else {
