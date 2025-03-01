@@ -85,13 +85,18 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-type ImageWithIndex = {
-  index: number;
+interface EditorImage {
   file: File;
-};
+}
+
+interface EditorImageWithIndex extends EditorImage {
+  index: number;
+}
 
 export default function BoardForm() {
-  const [editorField, setEditorField] = useState<ImageWithIndex>(null);
+  const [editorImage, setEditorImage] = useState<
+    EditorImage | EditorImageWithIndex
+  >({});
   const [coverPreviewShown, setCoverPreviewShown] = useState(false);
   const [coverPreviewURL, setCoverPreviewURL] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -123,6 +128,7 @@ export default function BoardForm() {
     },
     [append],
   );
+
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       onDrop,
@@ -149,12 +155,18 @@ export default function BoardForm() {
     mimeType,
   }: savedImageData) {
     const imageFile = base64ImageToFile(imageBase64, fullName, mimeType);
-    form.setValue(`images.${editorField.index}.file`, imageFile);
+    if (editorImage.index !== undefined) {
+      form.setValue(`images.${editorImage.index}.file`, imageFile);
+    } else {
+      form.setValue("cover", imageFile);
+      setCoverPreviewURL(URL.createObjectURL(imageFile));
+    }
+
     setDialogOpen(false);
   }
 
   const imageEditorConfig: FilerobotImageEditorConfig = {
-    source: editorField ? URL.createObjectURL(editorField.file) : "",
+    source: editorImage?.file ? URL.createObjectURL(editorImage.file) : "",
     getCurrentImgDataFnRef: editedImageRef,
   };
 
@@ -168,14 +180,14 @@ export default function BoardForm() {
   }
 
   return (
-    <div className="container mx-auto w-[600px]">
+    <div className="container mx-auto my-[15vh] w-[600px]">
       <Card>
         <CardHeader>
           <CardTitle className="text-center">Create a new board</CardTitle>
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <FormField
                 control={form.control}
                 name="title"
@@ -193,6 +205,7 @@ export default function BoardForm() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="description"
@@ -210,6 +223,7 @@ export default function BoardForm() {
                   </FormItem>
                 )}
               />
+
               <Collapsible>
                 <span className="mb-2 flex items-center justify-between">
                   <p
@@ -253,16 +267,31 @@ export default function BoardForm() {
                     )}
                   />
                   {coverPreviewShown && (
-                    <div className="my-8 flex justify-center">
-                      <div>
-                        <FormLabel htmlFor="cover">Preview</FormLabel>
-                        <div className="relative h-48 w-48">
-                          <Image
-                            src={coverPreviewURL}
-                            alt="cover image"
-                            className="rounded-md shadow-md"
-                            fill
-                          />
+                    <div className="my-6 flex justify-center py-4">
+                      <div className="flex flex-col space-y-4 rounded-md border px-6 py-4">
+                        <div>
+                          <FormLabel htmlFor="cover">Cover</FormLabel>
+                          <div className="relative h-48 w-48">
+                            <Image
+                              src={coverPreviewURL}
+                              alt="cover image"
+                              className="rounded-md shadow-md"
+                              fill
+                            />
+                          </div>
+                        </div>
+                        <div className="flex justify-center">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setEditorImage({ file: form.getValues("cover") });
+                              setDialogOpen(true);
+                            }}
+                          >
+                            <Crop />
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -287,7 +316,6 @@ export default function BoardForm() {
                     </Button>
                   </CollapsibleTrigger>
                 </span>
-
                 <CollapsibleContent>
                   <FormField
                     control={form.control}
@@ -297,7 +325,7 @@ export default function BoardForm() {
                         <div
                           {...getRootProps({
                             className: cn(
-                              "mb-4 flex w-full cursor-pointer flex-col items-center justify-center rounded-md border p-3",
+                              "my-8 flex w-full cursor-pointer flex-col items-center justify-center rounded-md border p-3",
                               isDragAccept && "border-green-500",
                               isDragReject && "border-red-500",
                             ),
@@ -328,13 +356,14 @@ export default function BoardForm() {
                       </div>
                     )}
                   />
+
                   {fields.map((field, index) => {
                     return (
                       <div
                         key={field.id}
-                        className="relative mb-8 rounded-md border p-2"
+                        className="relative mb-8 rounded-md border p-6"
                       >
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-8">
                           <div className="relative h-48 w-48">
                             <Image
                               src={URL.createObjectURL(
@@ -342,6 +371,7 @@ export default function BoardForm() {
                               )}
                               alt={form.getValues(`images.${index}.file.name`)}
                               fill
+                              className="rounded-md"
                             />
                           </div>
                           <div className="w-[50%]">
@@ -374,7 +404,7 @@ export default function BoardForm() {
                                 size="icon"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  setEditorField({ index, file: field.file });
+                                  setEditorImage({ index, file: field.file });
                                   setDialogOpen(true);
                                 }}
                               >
@@ -389,6 +419,7 @@ export default function BoardForm() {
                 </CollapsibleContent>
               </Collapsible>
             </CardContent>
+
             <CardFooter className="flex justify-end">
               <Button type="submit" className="bg-green-500 hover:bg-green-600">
                 Submit
