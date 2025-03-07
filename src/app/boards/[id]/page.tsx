@@ -1,5 +1,5 @@
-import BoardDetails from "@/components/BoardDetails";
-import GameCardProvider from "@/components/GameCardProvider";
+import BoardDetails from "@/components/boards/detail/board-details";
+import GameCardProvider from "@/components/boards/detail/game-card-provider";
 
 const BoardPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = Number((await params).id);

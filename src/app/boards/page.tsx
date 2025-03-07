@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 
 import { fetchBoardPages } from "@/lib/data";
-import BoardList from "@/components/BoardList";
-import BoardListSkeleton from "@/components/BoardListSkeleton";
-import Pagination from "@/components/Pagination";
-import Search from "@/components/Search";
+import BoardList from "@/components/boards/list/board-list";
+import BoardListSkeleton from "@/components/boards/list/board-list-skeleton";
+import Pagination from "@/components/boards/list/pagination";
+import Search from "@/components/boards/list/search";
 
 type BoardListPageProps = {
   searchParams?: Promise<{

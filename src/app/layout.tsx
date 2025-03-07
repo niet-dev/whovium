@@ -3,7 +3,7 @@ import { Nunito } from "next/font/google";
 
 import "./globals.css";
 
-import NavBarLoginProvider from "@/components/NavBarLoginProvider";
+import NavBarLoginProvider from "@/components/nav-bar-login-provider";
 
 const nunito = Nunito({
   subsets: ["latin"],

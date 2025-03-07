@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { getCurrentSession } from "@/lib/session";
-import BoardForm from "@/components/BoardForm";
+import BoardForm from "@/components/boards/create/board-form";
 
 export default async function Page() {
   const { user } = await getCurrentSession();

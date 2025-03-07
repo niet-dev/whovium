@@ -1,6 +1,5 @@
 import { fetchCardsByBoardId } from "@/lib/data";
-
-import ColorWrapper from "./ColorWrapper";
+import ColorWrapper from "@/components/boards/detail/color-wrapper";
 
 const GameCardProvider = async ({ id }: { id: number }) => {
   const cards = await fetchCardsByBoardId(id);

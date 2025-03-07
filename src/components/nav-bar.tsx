@@ -11,8 +11,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
-import SignOutButton from "./SignOutButton";
+import SignOutButton from "@/components/sign-out-button";
 
 type NavBarProps = {
   user: {

@@ -1,4 +1,4 @@
-import SignInGithubButton from "@/components/SignInGithubButton";
+import SignInGithubButton from "@/components/sign-in-github-button";
 
 export default function Page() {
   return (

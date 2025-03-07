@@ -1,7 +1,8 @@
 import Image from "next/image";
 
+import { Button } from "@/components/ui/button";
+
 import githubIcon from "../../public/github.svg";
-import { Button } from "./ui/button";
 
 export default function SignInGithubButton() {
   return (

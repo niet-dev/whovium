@@ -10,8 +10,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-
-import GameCard from "./GameCard";
+import GameCard from "@/components/boards/detail/game-card";
 
 const GameCardCarousel = ({
   cards = [],
@@ -52,7 +51,7 @@ const GameCardCarousel = ({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="mt-2 text-center text-sm text-muted-foreground">
+      <div className="text-muted-foreground mt-2 text-center text-sm">
         {current} of {count}
       </div>
     </Carousel>

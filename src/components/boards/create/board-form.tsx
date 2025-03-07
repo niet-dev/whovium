@@ -20,6 +20,13 @@ import {
 import { base64ImageToFile, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -40,19 +47,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { Textarea } from "./ui/textarea";
-
-const ImageEditor = dynamic(() => import("@/components/ImageEditor"), {
-  ssr: false,
-});
+const ImageEditor = dynamic(
+  () => import("@/components/boards/create/image-editor"),
+  {
+    ssr: false,
+  },
+);
 
 interface EditorImage {
   file: File;
