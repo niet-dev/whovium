@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { render, screen, within } from "@testing-library/react";
 
 import { Board } from "@/lib/types";
-import BoardSummary from "@/components/BoardSummary";
+import BoardSummary from "@/components/boards/list/board-summary";
 
 describe("BoardSummary", () => {
   const board: Board = {

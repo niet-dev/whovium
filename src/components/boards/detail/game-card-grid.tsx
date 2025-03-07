@@ -1,6 +1,6 @@
 import type { Card as GameCardType } from "@prisma/client";
 
-import GameCard from "./GameCard";
+import GameCard from "@/components/boards/detail/game-card";
 
 const GameCardGrid = ({
   cards = [],

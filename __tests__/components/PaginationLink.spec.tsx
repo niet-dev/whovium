@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import PaginationLink from "@/components/PaginationLink";
+import PaginationLink from "@/components/boards/list/pagination-link";
 
 describe("PaginationLink", () => {
   it("Links to the path passed to it", () => {

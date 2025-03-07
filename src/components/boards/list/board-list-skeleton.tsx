@@ -1,4 +1,4 @@
-import BoardSummarySkeleton from "./BoardSummarySkeleton";
+import BoardSummarySkeleton from "@/components/boards/list/board-summary-skeleton";
 
 const BoardListSkeleton = () => {
   return (

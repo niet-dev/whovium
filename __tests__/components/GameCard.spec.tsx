@@ -1,7 +1,7 @@
 import type { Card as GameCardType } from "@prisma/client";
 import { render, screen } from "@testing-library/react";
 
-import GameCard from "@/components/GameCard";
+import GameCard from "@/components/boards/detail/game-card";
 
 import { mockedAnimate } from "../../__mocks__/motion/react";
 

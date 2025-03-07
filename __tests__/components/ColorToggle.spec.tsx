@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import ColorToggle from "@/components/ColorToggle";
+import ColorToggle from "@/components/boards/detail/color-toggle";
 
 describe("ColorToggle", () => {
   it("renders a switch", () => {

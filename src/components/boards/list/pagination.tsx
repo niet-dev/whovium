@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 
-import PaginationLink from "./PaginationLink";
+import PaginationLink from "@/components/boards/list/pagination-link";
 
 const Pagination = ({ pageCount }: { pageCount: number }) => {
   const pathname = usePathname();

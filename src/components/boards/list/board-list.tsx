@@ -1,6 +1,5 @@
 import { fetchBoardList } from "@/lib/data";
-
-import BoardSummary from "./BoardSummary";
+import BoardSummary from "@/components/boards/list/board-summary";
 
 const BoardList = async ({ query, page }: { query: string; page: number }) => {
   const boards = await fetchBoardList(query, page);
