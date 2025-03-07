@@ -1,7 +1,5 @@
 "use server";
 
-import { randomUUID } from "node:crypto";
-
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 import { Upload } from "@aws-sdk/lib-storage";
@@ -23,15 +21,16 @@ export async function listS3BucketObjects() {
   console.log(contentsList);
 }
 
-export async function s3PutObject(file: File) {
+export async function s3PutObject(path: string, file: File) {
   try {
     const uploader = new Upload({
       client,
       leavePartsOnError: false,
-      params: { Bucket, Key: `${randomUUID()}.${file.type}`, Body: file },
+      params: { Bucket, Key: `${path}/${file.name}`, Body: file },
     });
 
-    await uploader.done();
+    const uploaded = await uploader.done();
+    return uploaded.Location;
   } catch (e) {
     throw e;
   }
