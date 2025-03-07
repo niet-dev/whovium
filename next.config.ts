@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        protocol: "https",
+        hostname: "whovium-uploads.s3.us-west-2.amazonaws.com",
+      },
     ],
   },
   experimental: {

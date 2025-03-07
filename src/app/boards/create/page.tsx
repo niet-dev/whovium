@@ -11,7 +11,7 @@ export default async function Page() {
 
   return (
     <div className="container mx-auto">
-      <BoardForm />
+      <BoardForm userId={user.id} />
     </div>
   );
 }

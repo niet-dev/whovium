@@ -13,6 +13,7 @@ import {
 } from "@/lib/session";
 
 import { s3PutObject } from "./aws";
+import prisma from "./prisma";
 
 type NamedImage = {
   file: File;
@@ -69,9 +70,31 @@ async function resizeImage(image: File) {
   return new File([resized], `${nanoid()}.png`);
 }
 
-export async function createBoard(data: BoardData) {
+export async function createBoard(data: BoardData, userId: number) {
   const boardImages = await uploadBoardImages(data.cover, data.images);
   console.log(boardImages);
+
+  const board = await prisma.board.create({
+    data: {
+      title: data.title,
+      imgSrc: boardImages.cover,
+      s3Path: boardImages.path,
+      description: data.description,
+      userId,
+    },
+  });
+
+  for (const image of boardImages.images) {
+    await prisma.card.create({
+      data: {
+        name: image.name,
+        imgSrc: image.path,
+        boardId: board.id,
+      },
+    });
+  }
+
+  return board.id;
   /** const formData = new FormData();
 
   formData.append("title", data.title);

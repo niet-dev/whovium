@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronsUpDown, Crop, X } from "lucide-react";
@@ -61,7 +62,7 @@ interface EditorImageWithIndex extends EditorImage {
   index: number;
 }
 
-export default function BoardForm() {
+export default function BoardForm({ userId }: { userId: number }) {
   const [editorImage, setEditorImage] = useState<
     EditorImage | EditorImageWithIndex
   >({});
@@ -107,8 +108,9 @@ export default function BoardForm() {
       },
     });
 
-  function onSubmit(values: FormValues) {
-    createBoard(values);
+  async function onSubmit(values: FormValues) {
+    const boardId = await createBoard(values, userId);
+    redirect(`/boards/${boardId}`);
   }
 
   type savedImageData = {
