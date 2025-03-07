@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
+import { nanoid } from "nanoid";
 
 const prisma = new PrismaClient();
 const fakerSeed = 24;
@@ -21,6 +22,7 @@ const seedBoards = async (numUsers: number, numBoards: number) => {
       data: {
         title: faker.book.series(),
         imgSrc: "https://placehold.co/300x300",
+        s3Path: nanoid(),
         description: faker.lorem.paragraph(),
         userId: Math.floor(Math.random() * numUsers + 1),
       },

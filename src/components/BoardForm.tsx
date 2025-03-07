@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronsUpDown, Crop, X } from "lucide-react";
@@ -10,6 +11,7 @@ import { useDropzone } from "react-dropzone";
 import type { FilerobotImageEditorConfig } from "react-filerobot-image-editor";
 import { useFieldArray, useForm } from "react-hook-form";
 
+import { createBoard } from "@/lib/actions";
 import {
   ACCEPTED_IMAGE_TYPES,
   createBoardFormSchema as formSchema,
@@ -60,7 +62,7 @@ interface EditorImageWithIndex extends EditorImage {
   index: number;
 }
 
-export default function BoardForm() {
+export default function BoardForm({ userId }: { userId: number }) {
   const [editorImage, setEditorImage] = useState<
     EditorImage | EditorImageWithIndex
   >({});
@@ -106,8 +108,9 @@ export default function BoardForm() {
       },
     });
 
-  function onSubmit(values: FormValues) {
-    console.log(values);
+  async function onSubmit(values: FormValues) {
+    const boardId = await createBoard(values, userId);
+    redirect(`/boards/${boardId}`);
   }
 
   type savedImageData = {
@@ -239,11 +242,11 @@ export default function BoardForm() {
                       <div className="flex flex-col space-y-4 rounded-md border px-6 py-4">
                         <div>
                           <FormLabel htmlFor="cover">Cover</FormLabel>
-                          <div className="relative h-48 w-48">
+                          <div className="relative size-40 rounded-md shadow-md">
                             <Image
                               src={coverPreviewURL}
                               alt="cover image"
-                              className="rounded-md shadow-md"
+                              className="rounded-md object-cover"
                               fill
                             />
                           </div>
@@ -332,16 +335,17 @@ export default function BoardForm() {
                         className="relative mb-8 rounded-md border p-6"
                       >
                         <div className="flex items-center space-x-8">
-                          <div className="relative h-48 w-48">
+                          <div className="relative size-40 rounded-md shadow-md">
                             <Image
                               src={URL.createObjectURL(
                                 form.getValues(`images.${index}.file`),
                               )}
                               alt={form.getValues(`images.${index}.file.name`)}
                               fill
-                              className="rounded-md"
+                              className="rounded-md object-cover"
                             />
                           </div>
+
                           <div className="w-[50%]">
                             <FormField
                               control={form.control}

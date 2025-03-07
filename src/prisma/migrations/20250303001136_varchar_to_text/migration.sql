@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Board" ALTER COLUMN "imgSrc" SET DATA TYPE TEXT,
+ALTER COLUMN "description" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "Card" ALTER COLUMN "imgSrc" SET DATA TYPE TEXT;
