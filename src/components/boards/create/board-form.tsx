@@ -17,6 +17,7 @@ import {
   createBoardFormSchema as formSchema,
   type CreateBoardFormValues as FormValues,
 } from "@/lib/schema";
+import { EditorImage, EditorImageWithIndex } from "@/lib/types";
 import { base64ImageToFile, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -55,14 +56,6 @@ const ImageEditor = dynamic(
     ssr: false,
   },
 );
-
-interface EditorImage {
-  file: File;
-}
-
-interface EditorImageWithIndex extends EditorImage {
-  index: number;
-}
 
 export default function BoardForm({ userId }: { userId: number }) {
   const [editorImage, setEditorImage] = useState<

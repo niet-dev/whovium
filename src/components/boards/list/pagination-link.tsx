@@ -4,11 +4,11 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 
 import { cn } from "@/lib/utils";
 
-interface PaginationLinkProps {
+type PaginationLinkProps = {
   href: string;
   disabled: boolean;
   direction: "left" | "right";
-}
+};
 
 export default function PaginationLink({
   href,
