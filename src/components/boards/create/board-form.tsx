@@ -11,7 +11,7 @@ import { useDropzone } from "react-dropzone";
 import type { FilerobotImageEditorConfig } from "react-filerobot-image-editor";
 import { useFieldArray, useForm } from "react-hook-form";
 
-import { createBoard } from "@/lib/actions";
+import { createBoard } from "@/lib/data";
 import {
   ACCEPTED_IMAGE_TYPES,
   createBoardFormSchema as formSchema,

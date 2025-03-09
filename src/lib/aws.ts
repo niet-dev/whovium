@@ -3,6 +3,10 @@
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 import { Upload } from "@aws-sdk/lib-storage";
+import { nanoid } from "nanoid";
+
+import { resizeImage } from "@/lib/actions";
+import { NamedImage, S3BoardImages } from "@/lib/types";
 
 const client = new S3Client({
   region: process.env.AWS_REGION,
@@ -34,4 +38,22 @@ export async function s3PutObject(path: string, file: File) {
   } catch (e) {
     throw e;
   }
+}
+
+export async function uploadBoardImages(
+  cover: File,
+  images: NamedImage[],
+): S3BoardImages {
+  const path = nanoid();
+  const boardImages: S3BoardImages = { path, images: [] };
+
+  boardImages.cover = await s3PutObject(boardImages.path, cover);
+
+  for (const image of images) {
+    const resizedImage = await resizeImage(image.file);
+    const location = await s3PutObject(boardImages.path, resizedImage);
+    boardImages.images.push({ name: image.name, path: location });
+  }
+
+  return boardImages;
 }

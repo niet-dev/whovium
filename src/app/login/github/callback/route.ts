@@ -2,13 +2,10 @@ import { cookies } from "next/headers";
 
 import type { OAuth2Tokens } from "arctic";
 
+import { createSession } from "@/lib/data";
 import { github } from "@/lib/oauth";
-import { prisma } from "@/lib/prisma";
-import {
-  createSession,
-  generateSessionToken,
-  setSessionTokenCookie,
-} from "@/lib/session";
+import prisma from "@/lib/prisma";
+import { generateSessionToken, setSessionTokenCookie } from "@/lib/session";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
