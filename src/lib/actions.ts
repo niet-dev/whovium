@@ -6,41 +6,19 @@ import { redirect } from "next/navigation";
 import { nanoid } from "nanoid";
 import sharp from "sharp";
 
+import { s3PutObject } from "@/lib/aws";
+import prisma from "@/lib/prisma";
 import {
   deleteSessionTokenCookie,
   getCurrentSession,
   invalidateSession,
 } from "@/lib/session";
-
-import { s3PutObject } from "./aws";
-import prisma from "./prisma";
-
-type NamedImage = {
-  file: File;
-  name: string;
-};
-
-interface S3CardImage {
-  name: string;
-  path: string;
-}
-
-type BoardData = {
-  title: string;
-  description: string;
-  cover: File;
-  images: NamedImage[];
-};
-
-type ActionResult = {
-  error: string | null;
-};
-
-interface S3BoardImages {
-  path: string;
-  cover: string;
-  images: S3CardImage[];
-}
+import {
+  ActionResult,
+  BoardData,
+  NamedImage,
+  S3BoardImages,
+} from "@/lib/types";
 
 async function uploadBoardImages(
   cover: File,

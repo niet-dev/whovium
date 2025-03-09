@@ -8,7 +8,7 @@ import { motion, useAnimate } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
-export type GameCardProps = {
+type GameCardProps = {
   card: GameCardType;
   color: "red" | "blue";
 };

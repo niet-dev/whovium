@@ -6,9 +6,10 @@ import {
   encodeBase32LowerCaseNoPadding,
   encodeHexLowerCase,
 } from "@oslojs/encoding";
-import type { Session, User } from "@prisma/client";
+import type { Session } from "@prisma/client";
 
-import { prisma } from "./prisma";
+import { prisma } from "@/lib/prisma";
+import { SessionValidationResult } from "@/lib/types";
 
 const ONE_DAY_MS = 1000 * 60 * 60 * 24;
 
@@ -114,7 +115,3 @@ export const getCurrentSession = cache(async (): SessionValidationResult => {
 
   return result;
 });
-
-export type SessionValidationResult =
-  | { session: Session; user: User }
-  | { session: null; user: null };
