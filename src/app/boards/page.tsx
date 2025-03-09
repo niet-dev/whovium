@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { fetchBoardPages } from "@/lib/data";
 import BoardList from "@/components/boards/list/board-list";
 import BoardListSkeleton from "@/components/boards/list/board-list-skeleton";
-import Pagination from "@/components/boards/list/pagination";
+import BoardPagination from "@/components/boards/list/board-pagination";
 import Search from "@/components/boards/list/search";
 
 type BoardListPageProps = {
@@ -25,13 +25,12 @@ export default async function Page({ searchParams }: BoardListPageProps) {
       </h1>
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <Search placeholder="Search..." />
-        <Pagination pageCount={pageCount} />
       </div>
       <Suspense fallback={<BoardListSkeleton />}>
         <BoardList query={query} page={page} />
       </Suspense>
       <div className="my-8">
-        <Pagination pageCount={pageCount} />
+        <BoardPagination pageCount={pageCount} />
       </div>
     </div>
   );
