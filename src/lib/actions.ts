@@ -95,23 +95,6 @@ export async function createBoard(data: BoardData, userId: number) {
   }
 
   return board.id;
-  /** const formData = new FormData();
-
-  formData.append("title", data.title);
-  formData.append("description", data.description);
-  formData.append("cover", data.cover);
-
-  data.images.forEach((image) => {
-    formData.append(`${image.name}`, image.file);
-  });
-
-  const res = await fetch("https://httpbin.org/post", {
-    method: "POST",
-    body: formData,
-  });
-
-  const json = await res.json();
-  return json; **/
 }
 
 export async function signout(): Promise<ActionResult> {

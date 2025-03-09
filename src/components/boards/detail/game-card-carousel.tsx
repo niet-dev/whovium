@@ -12,13 +12,13 @@ import {
 } from "@/components/ui/carousel";
 import GameCard from "@/components/boards/detail/game-card";
 
-const GameCardCarousel = ({
+export default function GameCardCarousel({
   cards = [],
   color,
 }: {
   cards: GameCardType[];
   color: "red" | "blue";
-}) => {
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(1);
   const [count, setCount] = useState(0);
@@ -56,6 +56,4 @@ const GameCardCarousel = ({
       </div>
     </Carousel>
   );
-};
-
-export default GameCardCarousel;
+}

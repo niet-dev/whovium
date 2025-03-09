@@ -13,7 +13,7 @@ type BoardListPageProps = {
   }>;
 };
 
-const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
+export default async function Page({ searchParams }: BoardListPageProps) {
   const query = (await searchParams)?.query || "";
   const page = (await searchParams)?.page || 1;
   const pageCount = await fetchBoardPages(query);
@@ -35,6 +35,4 @@ const BoardListPage = async ({ searchParams }: BoardListPageProps) => {
       </div>
     </div>
   );
-};
-
-export default BoardListPage;
+}
