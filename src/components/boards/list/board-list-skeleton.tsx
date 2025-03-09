@@ -1,6 +1,6 @@
 import BoardSummarySkeleton from "@/components/boards/list/board-summary-skeleton";
 
-const BoardListSkeleton = () => {
+export default function BoardListSkeleton() {
   return (
     <ul className="my-16 space-y-16">
       {Array(3)
@@ -14,6 +14,4 @@ const BoardListSkeleton = () => {
         })}
     </ul>
   );
-};
-
-export default BoardListSkeleton;
+}

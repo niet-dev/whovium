@@ -10,7 +10,11 @@ interface PaginationLinkProps {
   direction: "left" | "right";
 }
 
-const PaginationLink = ({ href, disabled, direction }: PaginationLinkProps) => {
+export default function PaginationLink({
+  href,
+  disabled,
+  direction,
+}: PaginationLinkProps) {
   const arrowIcon =
     direction === "left" ? (
       <ArrowLeftIcon aria-label="Left arrow icon" className="w-4" />
@@ -32,6 +36,4 @@ const PaginationLink = ({ href, disabled, direction }: PaginationLinkProps) => {
       <div className={className}>{arrowIcon}</div>
     </Link>
   );
-};
-
-export default PaginationLink;
+}

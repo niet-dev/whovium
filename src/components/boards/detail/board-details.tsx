@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { fetchBoardById } from "@/lib/data";
 
-const BoardDetails = async ({ id }: { id: number }) => {
+export default async function BoardDetails({ id }: { id: number }) {
   const board = await fetchBoardById(id);
 
   if (!board) {
@@ -35,6 +35,4 @@ const BoardDetails = async ({ id }: { id: number }) => {
       </section>
     </div>
   );
-};
-
-export default BoardDetails;
+}

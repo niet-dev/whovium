@@ -2,7 +2,7 @@ import prisma from "./prisma";
 
 const ITEMS_PER_PAGE = 10;
 
-export const fetchBoardList = async (query: string, page: number) => {
+export async function fetchBoardList(query: string, page: number) {
   const res = await prisma.board.findMany({
     skip: ITEMS_PER_PAGE * (page - 1),
     take: ITEMS_PER_PAGE,
@@ -21,9 +21,9 @@ export const fetchBoardList = async (query: string, page: number) => {
   });
 
   return res;
-};
+}
 
-export const fetchBoardPages = async (query: string) => {
+export async function fetchBoardPages(query: string) {
   const res = await prisma.board.count({
     where: {
       title: {
@@ -35,9 +35,9 @@ export const fetchBoardPages = async (query: string) => {
   const pageCount = Math.ceil(res / ITEMS_PER_PAGE);
 
   return pageCount;
-};
+}
 
-export const fetchCardsByBoardId = async (id: number) => {
+export async function fetchCardsByBoardId(id: number) {
   const res = await prisma.card.findMany({
     where: {
       boardId: id,
@@ -45,9 +45,9 @@ export const fetchCardsByBoardId = async (id: number) => {
   });
 
   return res;
-};
+}
 
-export const fetchBoardById = async (id: number) => {
+export async function fetchBoardById(id: number) {
   const res = await prisma.board.findUnique({
     where: {
       id: id,
@@ -58,4 +58,4 @@ export const fetchBoardById = async (id: number) => {
   });
 
   return res;
-};
+}

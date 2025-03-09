@@ -13,7 +13,7 @@ export type GameCardProps = {
   color: "red" | "blue";
 };
 
-const GameCard = ({ card, color }: GameCardProps) => {
+export default function GameCard({ card, color }: GameCardProps) {
   const [isSelected, setIsSelected] = useState(false);
   const [scope, animate] = useAnimate();
 
@@ -65,6 +65,4 @@ const GameCard = ({ card, color }: GameCardProps) => {
       </div>
     </div>
   );
-};
-
-export default GameCard;
+}

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Board } from "@/lib/types";
 
-const BoardSummary = ({ board }: { board: Board }) => {
+export default function BoardSummary({ board }: { board: Board }) {
   return (
     <article className="mx-auto w-[300px] rounded-lg border shadow-xl xl:flex xl:h-[300px] xl:w-full">
       <section
@@ -64,6 +64,4 @@ const BoardSummary = ({ board }: { board: Board }) => {
       </section>
     </article>
   );
-};
-
-export default BoardSummary;
+}

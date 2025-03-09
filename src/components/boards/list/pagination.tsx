@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import PaginationLink from "@/components/boards/list/pagination-link";
 
-const Pagination = ({ pageCount }: { pageCount: number }) => {
+export default function Pagination({ pageCount }: { pageCount: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
@@ -33,6 +33,4 @@ const Pagination = ({ pageCount }: { pageCount: number }) => {
       />
     </section>
   );
-};
-
-export default Pagination;
+}
