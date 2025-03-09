@@ -4,7 +4,7 @@ import { fetchBoardPages } from "@/lib/data";
 import BoardList from "@/components/boards/list/board-list";
 import BoardListSkeleton from "@/components/boards/list/board-list-skeleton";
 import BoardPagination from "@/components/boards/list/board-pagination";
-import Search from "@/components/boards/list/search";
+import SearchBar from "@/components/boards/list/search";
 
 type BoardListPageProps = {
   searchParams?: Promise<{
@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: BoardListPageProps) {
         Boards
       </h1>
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
-        <Search placeholder="Search..." />
+        <SearchBar placeholder="Search..." />
       </div>
       <Suspense fallback={<BoardListSkeleton />}>
         <BoardList query={query} page={page} />
