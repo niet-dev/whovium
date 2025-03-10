@@ -18,8 +18,9 @@ model Board {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String   @db.VarChar(255)
-  imgSrc      String?  @db.VarChar(255)
-  description String   @default("No description available.") @db.VarChar(500)
+  s3Path      String   @db.Text
+  imgSrc      String   @db.Text
+  description String   @db.VarChar(500)
   createdBy   User     @relation(fields: [userId], references: [id])
   userId      Int
   cards       Card[]
@@ -28,7 +29,7 @@ model Board {
 model Card {
   id      Int     @id @default(autoincrement())
   name    String  @db.VarChar(100)
-  imgSrc  String? @db.VarChar(255)
+  imgSrc  String? @db.Text
   board   Board   @relation(fields: [boardId], references: [id])
   boardId Int
 }

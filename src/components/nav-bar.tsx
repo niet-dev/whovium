@@ -1,6 +1,7 @@
+"use client";
+
 import Link from "next/link";
 
-import { getCurrentSession } from "@/lib/session";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,12 +11,17 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import SignOutButton from "@/components/sign-out-button";
 
-import SignOutButton from "./SignOutButton";
+type NavBarProps = {
+  user: {
+    username: string;
+    id: number;
+    githubId: number;
+  };
+};
 
-export default async function NavBar() {
-  const { user } = await getCurrentSession();
-
+export default function NavBar({ user }: NavBarProps) {
   return (
     <header>
       <nav className="container mx-auto flex h-16 justify-between p-4">

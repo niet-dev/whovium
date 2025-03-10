@@ -1,14 +1,14 @@
 import type { Card as GameCardType } from "@prisma/client";
 
-import GameCard from "./GameCard";
+import GameCard from "@/components/boards/detail/game-card";
 
-const GameCardGrid = ({
+export default function GameCardGrid({
   cards = [],
   color,
 }: {
   cards: GameCardType[];
   color: "red" | "blue";
-}) => {
+}) {
   return (
     <div
       aria-label="Game card grid"
@@ -21,6 +21,4 @@ const GameCardGrid = ({
       ))}
     </div>
   );
-};
-
-export default GameCardGrid;
+}

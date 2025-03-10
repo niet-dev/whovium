@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 
-import NavBar from "@/components/NavBar";
-
 import "./globals.css";
+
+import NavBarLoginProvider from "@/components/nav-bar-login-provider";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${nunito.className} antialiased`}>
-        <NavBar />
+        <NavBarLoginProvider />
         <div>{children}</div>
       </body>
     </html>

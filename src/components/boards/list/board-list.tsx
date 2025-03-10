@@ -1,8 +1,13 @@
 import { fetchBoardList } from "@/lib/data";
+import BoardSummary from "@/components/boards/list/board-summary";
 
-import BoardSummary from "./BoardSummary";
-
-const BoardList = async ({ query, page }: { query: string; page: number }) => {
+export default async function BoardList({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}) {
   const boards = await fetchBoardList(query, page);
 
   if (!boards || boards.length === 0) {
@@ -22,6 +27,4 @@ const BoardList = async ({ query, page }: { query: string; page: number }) => {
       ))}
     </ul>
   );
-};
-
-export default BoardList;
+}

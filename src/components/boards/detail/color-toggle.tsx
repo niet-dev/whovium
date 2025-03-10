@@ -1,15 +1,14 @@
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
-import { Label } from "./ui/label";
-import { Switch } from "./ui/switch";
-
-const ColorToggle = ({
+export default function ColorToggle({
   handleColorChange,
   className,
 }: {
   handleColorChange: (e: FormEvent<HTMLButtonElement>) => void;
   className: string;
-}) => {
+}) {
   return (
     <div
       className={cn(
@@ -26,6 +25,4 @@ const ColorToggle = ({
       <Label htmlFor="color-toggle">Card Color</Label>
     </div>
   );
-};
-
-export default ColorToggle;
+}

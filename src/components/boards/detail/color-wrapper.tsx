@@ -4,11 +4,11 @@ import { useState } from "react";
 
 import { Card as GameCardType } from "@prisma/client";
 
-import ColorToggle from "./ColorToggle";
-import GameCardCarousel from "./GameCardCarousel";
-import GameCardGrid from "./GameCardGrid";
+import ColorToggle from "@/components/boards/detail/color-toggle";
+import GameCardCarousel from "@/components/boards/detail/game-card-carousel";
+import GameCardGrid from "@/components/boards/detail/game-card-grid";
 
-const ColorWrapper = ({ cards }: { cards: GameCardType[] }) => {
+export default function ColorWrapper({ cards }: { cards: GameCardType[] }) {
   const [color, setColor] = useState<"red" | "blue">("red");
 
   const handleColorChange = () => {
@@ -29,6 +29,4 @@ const ColorWrapper = ({ cards }: { cards: GameCardType[] }) => {
       </div>
     </div>
   );
-};
-
-export default ColorWrapper;
+}

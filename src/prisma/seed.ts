@@ -1,10 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
+import { nanoid } from "nanoid";
 
 const prisma = new PrismaClient();
 const fakerSeed = 24;
 
-const seedUsers = async (numUsers: number) => {
+async function seedUsers(numUsers: number) {
   for (let i = 0; i < numUsers; i++) {
     await prisma.user.create({
       data: {
@@ -13,22 +14,23 @@ const seedUsers = async (numUsers: number) => {
       },
     });
   }
-};
+}
 
-const seedBoards = async (numUsers: number, numBoards: number) => {
+async function seedBoards(numUsers: number, numBoards: number) {
   for (let i = 0; i < numBoards; i++) {
     await prisma.board.create({
       data: {
         title: faker.book.series(),
         imgSrc: "https://placehold.co/300x300",
+        s3Path: nanoid(),
         description: faker.lorem.paragraph(),
         userId: Math.floor(Math.random() * numUsers + 1),
       },
     });
   }
-};
+}
 
-const seedCards = async (numBoards: number, numCards: number) => {
+async function seedCards(numBoards: number, numCards: number) {
   for (let i = 0; i < numBoards; i++) {
     for (let j = 0; j < numCards; j++) {
       await prisma.card.create({
@@ -40,9 +42,9 @@ const seedCards = async (numBoards: number, numCards: number) => {
       });
     }
   }
-};
+}
 
-const seedDb = async ({
+async function seedDb({
   numUsers,
   numBoards,
   numCards,
@@ -50,13 +52,13 @@ const seedDb = async ({
   numUsers: number;
   numBoards: number;
   numCards: number;
-}) => {
+}) {
   faker.seed(fakerSeed);
   await seedUsers(numUsers);
   await seedBoards(numUsers, numBoards);
   await seedCards(numBoards, numCards);
   faker.seed();
-};
+}
 
 seedDb({ numUsers: 20, numBoards: 100, numCards: 30 })
   .then(async () => {

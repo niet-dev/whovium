@@ -10,16 +10,15 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import GameCard from "@/components/boards/detail/game-card";
 
-import GameCard from "./GameCard";
-
-const GameCardCarousel = ({
+export default function GameCardCarousel({
   cards = [],
   color,
 }: {
   cards: GameCardType[];
   color: "red" | "blue";
-}) => {
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(1);
   const [count, setCount] = useState(0);
@@ -52,11 +51,9 @@ const GameCardCarousel = ({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="mt-2 text-center text-sm text-muted-foreground">
+      <div className="text-muted-foreground mt-2 text-center text-sm">
         {current} of {count}
       </div>
     </Carousel>
   );
-};
-
-export default GameCardCarousel;
+}
