@@ -388,6 +388,7 @@ export default function BoardForm({ userId }: { userId: number }) {
             </CardContent>
 
             <CardFooter className="flex justify-end">
+              {/* TODO: Change cursor to reflect action */}
               <Button type="submit" className="bg-green-500 hover:bg-green-600">
                 Submit
               </Button>

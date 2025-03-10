@@ -9,10 +9,11 @@ export default function SignInGithubButton() {
     <Button
       asChild
       variant="outline"
-      aria-label="Login with Google"
+      aria-label="Login with Github"
       type="button"
       className="flex w-full items-center justify-center space-x-4 rounded-md border p-6 text-[#181717]"
     >
+      {/* TODO: Change this to nextjs Link component */}
       <a href="/login/github">
         <Image
           src={githubIcon}
