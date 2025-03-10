@@ -1,6 +1,9 @@
 import { Suspense } from "react";
+import Link from "next/link";
 
 import { fetchBoardPages } from "@/lib/data";
+import { getCurrentSession } from "@/lib/session";
+import { Button } from "@/components/ui/button";
 import BoardList from "@/components/boards/list/board-list";
 import BoardListSkeleton from "@/components/boards/list/board-list-skeleton";
 import BoardPagination from "@/components/boards/list/board-pagination";
@@ -14,6 +17,7 @@ type BoardListPageProps = {
 };
 
 export default async function Page({ searchParams }: BoardListPageProps) {
+  const { user } = await getCurrentSession();
   const query = (await searchParams)?.query || "";
   const page = (await searchParams)?.page || 1;
   const pageCount = await fetchBoardPages(query);
@@ -25,6 +29,17 @@ export default async function Page({ searchParams }: BoardListPageProps) {
       </h1>
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <SearchBar placeholder="Search..." />
+        {user && (
+          <Button
+            variant="secondary"
+            asChild
+            aria-label="Create"
+            type="button"
+            className="bg-green-500 text-white hover:bg-green-600 hover:text-white"
+          >
+            <Link href="/boards/create">Create</Link>
+          </Button>
+        )}
       </div>
       <Suspense fallback={<BoardListSkeleton />}>
         <BoardList query={query} page={page} />
