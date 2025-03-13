@@ -22,6 +22,8 @@ export default function ImageEditor({
       tabsIds={[TABS.ADJUST, TABS.FILTERS, TABS.RESIZE]}
       defaultTabId={TABS.ADJUST}
       defaultToolId={TOOLS.CROP}
+      savingPixelRatio={config.savingPixelRatio}
+      previewPixelRatio={config.previewPixelRatio}
     />
   );
 }

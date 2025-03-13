@@ -6,7 +6,7 @@ import type { Session } from "@prisma/client";
 
 import { uploadBoardImages } from "@/lib/aws";
 import prisma from "@/lib/prisma";
-import { BoardData } from "@/lib/types";
+import type { BoardData, SessionValidationResult } from "@/lib/types";
 
 const ITEMS_PER_PAGE = 10;
 const ONE_DAY_MS = 1000 * 60 * 60 * 24;

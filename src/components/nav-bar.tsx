@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+import { User } from "@prisma/client";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,11 +16,7 @@ import {
 import SignOutButton from "@/components/sign-out-button";
 
 type NavBarProps = {
-  user: {
-    username: string;
-    id: number;
-    githubId: number;
-  };
+  user: User | null;
 };
 
 export default function NavBar({ user }: NavBarProps) {
