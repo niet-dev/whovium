@@ -14,7 +14,8 @@
     "e2e:ui": "npx playwright test --ui",
     "e2e:debug": "npx playwright test --debug",
     "prisma:reset": "dotenv -e .env.development.local -- npx prisma migrate reset",
-    "prisma:migrate-dev": "dotenv -e .env.development.local -- npx prisma migrate dev"
+    "prisma:migrate-dev": "dotenv -e .env.development.local -- npx prisma migrate dev",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma",
