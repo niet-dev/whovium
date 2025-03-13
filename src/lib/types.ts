@@ -1,14 +1,8 @@
-import type { User } from "@prisma/client";
+import { Prisma, type Session, type User } from "@prisma/client";
 
-export interface Board {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  title: string;
-  imgSrc: string;
-  createdBy: User;
-  description: string;
-}
+export type BoardWithUser = Prisma.BoardGetPayload<{
+  include: { createdBy: true };
+}>;
 
 export interface EditorImage {
   file: File;

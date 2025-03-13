@@ -13,7 +13,7 @@ const client = new S3Client({
 
   credentials: fromCognitoIdentityPool({
     clientConfig: { region: process.env.AWS_REGION },
-    identityPoolId: process.env.AWS_COGNITO_IDENTITY_POOL_ID,
+    identityPoolId: process.env.AWS_COGNITO_IDENTITY_POOL_ID ?? "",
   }),
 });
 const Bucket = process.env.AWS_S3_BUCKET;
@@ -34,7 +34,7 @@ export async function s3PutObject(path: string, file: File) {
     });
 
     const uploaded = await uploader.done();
-    return uploaded.Location;
+    return uploaded.Location ?? "";
   } catch (e) {
     throw e;
   }
@@ -43,9 +43,9 @@ export async function s3PutObject(path: string, file: File) {
 export async function uploadBoardImages(
   cover: File,
   images: NamedImage[],
-): S3BoardImages {
+): Promise<S3BoardImages> {
   const path = nanoid();
-  const boardImages: S3BoardImages = { path, images: [] };
+  const boardImages: S3BoardImages = { path, images: [], cover: "" };
 
   boardImages.cover = await s3PutObject(boardImages.path, cover);
 

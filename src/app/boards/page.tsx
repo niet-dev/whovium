@@ -19,7 +19,7 @@ type BoardListPageProps = {
 export default async function Page({ searchParams }: BoardListPageProps) {
   const { user } = await getCurrentSession();
   const query = (await searchParams)?.query || "";
-  const page = (await searchParams)?.page || 1;
+  const page = Number((await searchParams)?.page) || 1;
   const pageCount = await fetchBoardPages(query);
 
   return (

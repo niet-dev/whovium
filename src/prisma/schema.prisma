@@ -22,10 +22,10 @@ model Board {
 }
 
 model Card {
-  id      Int     @id @default(autoincrement())
-  name    String  @db.VarChar(100)
-  imgSrc  String? @db.Text
-  board   Board   @relation(fields: [boardId], references: [id])
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(100)
+  imgSrc  String @db.Text
+  board   Board  @relation(fields: [boardId], references: [id])
   boardId Int
 }
 
