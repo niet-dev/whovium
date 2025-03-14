@@ -17,27 +17,14 @@ export type NamedImage = {
   name: string;
 };
 
-export interface S3CardImage {
+export interface CardWithPath {
   name: string;
   path: string;
 }
 
-export type BoardData = {
-  title: string;
-  description: string;
-  cover: File;
-  images: NamedImage[];
-};
-
 export type ActionResult = {
   error: string | null;
 };
-
-export interface S3BoardImages {
-  path: string;
-  cover: string;
-  images: S3CardImage[];
-}
 
 export type SessionValidationResult =
   | { session: Session; user: User }
