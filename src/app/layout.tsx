@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+
+import { nunito } from "@/lib/fonts";
 
 import "./globals.css";
 
 import NavBarLoginProvider from "@/components/nav-bar-login-provider";
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Whovium",
