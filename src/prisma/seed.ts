@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
-import { nanoid } from "nanoid";
 
 const prisma = new PrismaClient();
 const fakerSeed = 24;
@@ -22,7 +21,6 @@ async function seedBoards(numUsers: number, numBoards: number) {
       data: {
         title: faker.book.series(),
         imgSrc: "https://placehold.co/300x300",
-        s3Path: nanoid(),
         description: faker.lorem.paragraph(),
         userId: Math.floor(Math.random() * numUsers + 1),
       },
@@ -60,7 +58,7 @@ async function seedDb({
   faker.seed();
 }
 
-seedDb({ numUsers: 20, numBoards: 100, numCards: 30 })
+seedDb({ numUsers: 2, numBoards: 5, numCards: 10 })
   .then(async () => {
     await prisma.$disconnect();
   })

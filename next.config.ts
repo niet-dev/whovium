@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "whovium-uploads.s3.us-west-2.amazonaws.com",
+        hostname: "fmnwcxmykfanxjzq.public.blob.vercel-storage.com",
       },
     ],
   },
