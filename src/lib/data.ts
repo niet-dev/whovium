@@ -4,9 +4,11 @@ import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeHexLowerCase } from "@oslojs/encoding";
 import type { Session } from "@prisma/client";
 
-import { uploadBoardImages } from "@/lib/aws";
 import prisma from "@/lib/prisma";
-import { BoardData } from "@/lib/types";
+import type { CardWithPath, SessionValidationResult } from "@/lib/types";
+
+import { uploadImage } from "./actions";
+import { CreateBoardFormValues } from "./schema";
 
 const ITEMS_PER_PAGE = 10;
 const ONE_DAY_MS = 1000 * 60 * 60 * 24;
@@ -128,20 +130,25 @@ export async function invalidateSession(sessionId: string): Promise<void> {
   await prisma.session.delete({ where: { id: sessionId } });
 }
 
-export async function createBoard(data: BoardData, userId: number) {
-  const boardImages = await uploadBoardImages(data.cover, data.images);
+export async function createBoard(data: CreateBoardFormValues, userId: number) {
+  const coverImagePath = await uploadImage(data.cover);
+
+  const cardPathList: CardWithPath[] = [];
+  for (const image of data.images) {
+    const path = await uploadImage(image.file);
+    cardPathList.push({ name: image.name, path });
+  }
 
   const board = await prisma.board.create({
     data: {
       title: data.title,
-      imgSrc: boardImages.cover,
-      s3Path: boardImages.path,
+      imgSrc: coverImagePath,
       description: data.description,
       userId,
     },
   });
 
-  for (const image of boardImages.images) {
+  for (const image of cardPathList) {
     await prisma.card.create({
       data: {
         name: image.name,

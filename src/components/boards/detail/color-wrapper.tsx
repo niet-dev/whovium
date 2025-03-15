@@ -18,7 +18,7 @@ export default function ColorWrapper({ cards }: { cards: GameCardType[] }) {
   return (
     <div aria-label="Color wrapper">
       <ColorToggle
-        handleColorChange={(e) => handleColorChange(e)}
+        handleColorChange={handleColorChange}
         className="flex justify-center"
       />
       <div className="mx-4 xl:hidden">

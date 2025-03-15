@@ -16,7 +16,7 @@ export function generateSessionToken(): string {
 
 export async function setSessionTokenCookie(
   token: string,
-  expiresAt: date,
+  expiresAt: Date,
 ): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set("session", token, {
@@ -39,13 +39,15 @@ export async function deleteSessionTokenCookie(): Promise<void> {
   });
 }
 
-export const getCurrentSession = cache(async (): SessionValidationResult => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("session")?.value ?? null;
-  if (token === null) {
-    return { session: null, user: null };
-  }
-  const result = await validateSessionToken(token);
+export const getCurrentSession = cache(
+  async (): Promise<SessionValidationResult> => {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("session")?.value ?? null;
+    if (token === null) {
+      return { session: null, user: null };
+    }
+    const result = await validateSessionToken(token);
 
-  return result;
-});
+    return result;
+  },
+);

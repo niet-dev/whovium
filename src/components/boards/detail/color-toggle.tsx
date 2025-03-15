@@ -6,7 +6,7 @@ export default function ColorToggle({
   handleColorChange,
   className,
 }: {
-  handleColorChange: (e: FormEvent<HTMLButtonElement>) => void;
+  handleColorChange: (e: React.FormEvent<HTMLButtonElement>) => void;
   className: string;
 }) {
   return (

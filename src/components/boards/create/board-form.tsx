@@ -8,7 +8,10 @@ import { redirect } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronsUpDown, Crop, X } from "lucide-react";
 import { useDropzone } from "react-dropzone";
-import type { FilerobotImageEditorConfig } from "react-filerobot-image-editor";
+import type {
+  FilerobotImageEditorConfig,
+  getCurrentImgDataFunction,
+} from "react-filerobot-image-editor";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import { createBoard } from "@/lib/data";
@@ -57,21 +60,31 @@ const ImageEditor = dynamic(
   },
 );
 
+type ImgDataFunctionReturnTypes = ReturnType<getCurrentImgDataFunction>;
+type SavedImageData = ImgDataFunctionReturnTypes["imageData"];
+
 export default function BoardForm({ userId }: { userId: number }) {
   const [editorImage, setEditorImage] = useState<
     EditorImage | EditorImageWithIndex
-  >({});
+  >({} as EditorImageWithIndex);
   const [coverPreviewShown, setCoverPreviewShown] = useState(false);
   const [coverPreviewURL, setCoverPreviewURL] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
-  const editedImageRef = useRef(null);
+  const editedImageRef = useRef<null | getCurrentImgDataFunction>(null);
+
+  const imageEditorConfig: FilerobotImageEditorConfig = {
+    source: editorImage?.file ? URL.createObjectURL(editorImage.file) : "",
+    getCurrentImgDataFnRef: editedImageRef,
+    savingPixelRatio: 1,
+    previewPixelRatio: 1,
+  };
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       description: "",
-      cover: null,
+      cover: undefined,
       images: [],
     },
   });
@@ -82,7 +95,7 @@ export default function BoardForm({ userId }: { userId: number }) {
   });
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles: File[]) => {
       acceptedFiles.map((acceptedFile) => {
         return append({
           file: acceptedFile,
@@ -108,20 +121,18 @@ export default function BoardForm({ userId }: { userId: number }) {
     redirect(`/boards/${boardId}`);
   }
 
-  type savedImageData = {
-    imageBase64: string;
-    fullName: string;
-    mimeType: string;
-  };
-
-  function handleImageCropSave({
-    imageBase64,
-    fullName,
-    mimeType,
-  }: savedImageData) {
+  function handleImageCropSave(data: SavedImageData) {
+    if (
+      data.fullName === undefined ||
+      data.mimeType === undefined ||
+      data.imageBase64 === undefined
+    ) {
+      throw new Error("One or more required elements is undefined.");
+    }
+    const { fullName, mimeType, imageBase64 } = data;
     const imageFile = base64ImageToFile(imageBase64, fullName, mimeType);
 
-    if (editorImage.index !== undefined) {
+    if ("index" in editorImage) {
       form.setValue(`images.${editorImage.index}.file`, imageFile);
     } else {
       form.setValue("cover", imageFile);
@@ -130,11 +141,6 @@ export default function BoardForm({ userId }: { userId: number }) {
 
     setDialogOpen(false);
   }
-
-  const imageEditorConfig: FilerobotImageEditorConfig = {
-    source: editorImage?.file ? URL.createObjectURL(editorImage.file) : "",
-    getCurrentImgDataFnRef: editedImageRef,
-  };
 
   function onCoverImageChange() {
     if (ACCEPTED_IMAGE_TYPES.includes(form.getValues("cover")?.type)) {
@@ -180,7 +186,6 @@ export default function BoardForm({ userId }: { userId: number }) {
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
-                        type="text"
                         placeholder="Enter a description..."
                         {...field}
                       />
@@ -335,7 +340,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                               src={URL.createObjectURL(
                                 form.getValues(`images.${index}.file`),
                               )}
-                              alt={form.getValues(`images.${index}.file.name`)}
+                              alt={`Card image ${index}`}
                               fill
                               className="rounded-md object-cover"
                             />
@@ -408,9 +413,11 @@ export default function BoardForm({ userId }: { userId: number }) {
           <div className="flex justify-end">
             <Button
               className="bg-green-500 hover:bg-green-600"
-              onClick={() =>
-                handleImageCropSave(editedImageRef.current().imageData)
-              }
+              onClick={() => {
+                if (editedImageRef.current !== null) {
+                  handleImageCropSave(editedImageRef.current({}).imageData);
+                }
+              }}
             >
               Save
             </Button>

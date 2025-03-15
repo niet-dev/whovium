@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -18,7 +13,6 @@ model Board {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String   @db.VarChar(255)
-  s3Path      String   @db.Text
   imgSrc      String   @db.Text
   description String   @db.VarChar(500)
   createdBy   User     @relation(fields: [userId], references: [id])
@@ -27,10 +21,10 @@ model Board {
 }
 
 model Card {
-  id      Int     @id @default(autoincrement())
-  name    String  @db.VarChar(100)
-  imgSrc  String? @db.Text
-  board   Board   @relation(fields: [boardId], references: [id])
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(100)
+  imgSrc  String @db.Text
+  board   Board  @relation(fields: [boardId], references: [id])
   boardId Int
 }
 
