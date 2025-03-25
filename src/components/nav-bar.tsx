@@ -23,8 +23,8 @@ export default function NavBar({ user }: NavBarProps) {
   return (
     <header>
       <nav className="container mx-auto flex h-16 justify-between p-4">
-        <Link href="/" className="flex items-center">
-          Whovium
+        <Link href="/" className="flex items-center font-bold text-red-400">
+          W?
         </Link>
         <NavigationMenu>
           <NavigationMenuList>
