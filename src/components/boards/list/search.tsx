@@ -27,7 +27,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  const inputCn = cn("peer w-full pl-10");
+  const inputCn = cn("peer bg-background w-full pl-10");
 
   const iconCn = cn(
     "absolute top-1/2 left-3 h-[18px] w-[18px] -translate-y-1/2",
@@ -35,10 +35,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
   );
 
   return (
-    <div
-      role="search"
-      className="relative w-full max-w-[280px] md:w-8/12 md:max-w-none"
-    >
+    <div role="search" className="relative w-full">
       <Input
         type="search"
         placeholder={placeholder}

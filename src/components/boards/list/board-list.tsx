@@ -12,14 +12,14 @@ export default async function BoardList({
 
   if (!boards || boards.length === 0) {
     return (
-      <p aria-label="Empty board list" className="my-16 text-center">
+      <p aria-label="Empty board list" className="text-center">
         No data available.
       </p>
     );
   }
 
   return (
-    <ul className="my-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2">
+    <ul className="flex flex-col items-center gap-8">
       {boards.map((board) => (
         <li key={board.id}>
           <BoardSummary board={board} />
