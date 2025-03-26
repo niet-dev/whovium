@@ -5,11 +5,11 @@ import Link from "next/link";
 
 import { ChevronLeft, Images, User } from "lucide-react";
 
-import { BoardWithUser } from "@/lib/types";
+import { BoardWithUserAndCards } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 
 type BoardDetailsProps = {
-  board: BoardWithUser;
+  board: BoardWithUserAndCards;
 };
 
 export default function BoardDetails({ board }: BoardDetailsProps) {
@@ -49,7 +49,7 @@ export default function BoardDetails({ board }: BoardDetailsProps) {
             </div>
             <div className="flex items-center gap-1">
               <Images size="18" />
-              <p>62 Cards</p>
+              <p>{board.cards.length} Cards</p>
             </div>
           </div>
         </div>

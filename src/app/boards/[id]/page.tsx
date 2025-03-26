@@ -13,8 +13,6 @@ export default async function Page({
     return <p>null</p>;
   }
 
-  console.log(board);
-
   return (
     <main className="container mx-auto">
       <BoardDetails board={board} />
