@@ -13,9 +13,5 @@ export default async function Page({
     return <p>null</p>;
   }
 
-  return (
-    <main className="container mx-auto">
-      <BoardDetails board={board} />
-    </main>
-  );
+  return <BoardDetails board={board} />;
 }
