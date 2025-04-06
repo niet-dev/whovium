@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { User } from "@prisma/client";
 
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,16 +22,21 @@ type NavBarProps = {
 
 export default function NavBar({ user }: NavBarProps) {
   return (
-    <header>
-      <nav className="container mx-auto flex h-16 justify-between p-4">
-        <Link href="/" className="flex items-center font-bold text-red-400">
+    <header className="shadow-md">
+      <nav className="container mx-auto flex h-14 w-full justify-between p-4">
+        <Link href="/" className="text-brand flex items-center font-bold">
           W?
         </Link>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/boards" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "text-text-strong",
+                  )}
+                >
                   Boards
                 </NavigationMenuLink>
               </Link>
@@ -49,7 +55,12 @@ export default function NavBar({ user }: NavBarProps) {
                 </>
               ) : (
                 <Link href="/login" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "text-text-strong",
+                    )}
+                  >
                     Sign in
                   </NavigationMenuLink>
                 </Link>
