@@ -19,20 +19,24 @@ export default async function Page({ searchParams }: BoardListPageProps) {
   const pageCount = await fetchBoardPages(query);
 
   return (
-    <div className="container mx-auto">
-      <div className="flex items-center justify-center bg-gray-200 p-4">
-        <SearchBar placeholder="Search..." />
+    <main className="relative">
+      <div className="bg-fill/90 flex items-center justify-center p-4">
+        <div className="container mx-auto">
+          <SearchBar placeholder="Search..." />
+        </div>
       </div>
-      <div className="px-4">
-        <h1 className="my-8 text-lg font-bold">Boards</h1>
-        <Suspense fallback={<BoardListSkeleton />}>
-          <BoardList query={query} page={page} />
-        </Suspense>
-      </div>
+      <div className="container mx-auto">
+        <div className="px-4">
+          <h1 className="text-background my-4 text-lg font-bold">Boards</h1>
+          <Suspense fallback={<BoardListSkeleton />}>
+            <BoardList query={query} page={page} />
+          </Suspense>
+        </div>
 
-      <div className="my-8">
-        <BoardPagination pageCount={pageCount} />
+        <div className="py-8">
+          <BoardPagination pageCount={pageCount} />
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

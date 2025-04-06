@@ -27,23 +27,27 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  const inputCn = cn("peer bg-background w-full pl-10");
+  const inputCn = cn(
+    "peer bg-background border-stroke-weak w-full max-w-md pl-10",
+  );
 
   const iconCn = cn(
     "absolute top-1/2 left-3 h-[18px] w-[18px] -translate-y-1/2",
-    "text-gray-500 peer-focus:text-gray-900",
+    "text-stroke-weak peer-focus:text-text-strong",
   );
 
   return (
-    <div role="search" className="relative w-full">
-      <Input
-        type="search"
-        placeholder={placeholder}
-        onChange={(e) => handleSearch(e.target.value)}
-        defaultValue={searchParams.get("query")?.toString()}
-        className={inputCn}
-      />
-      <Search className={iconCn} />
+    <div className="flex justify-center">
+      <div role="search" className="relative w-full max-w-md">
+        <Input
+          type="search"
+          placeholder={placeholder}
+          onChange={(e) => handleSearch(e.target.value)}
+          defaultValue={searchParams.get("query")?.toString()}
+          className={inputCn}
+        />
+        <Search className={iconCn} />
+      </div>
     </div>
   );
 }
