@@ -4,6 +4,7 @@ import { nunito } from "@/lib/fonts";
 
 import "./globals.css";
 
+import ColoredBackground from "@/components/colored-background";
 import NavBarLoginProvider from "@/components/nav-bar-login-provider";
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${nunito.className} antialiased`}>
         <NavBarLoginProvider />
-        <div>{children}</div>
+        <ColoredBackground>{children}</ColoredBackground>
       </body>
     </html>
   );
