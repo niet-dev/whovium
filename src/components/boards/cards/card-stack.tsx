@@ -12,27 +12,46 @@ import "swiper/css/effect-cards";
 
 type CardStackProps = {
   cards: Card[];
+  cardStates: Record<number, boolean>;
+  handleCardStateChange: (number) => void;
+  startingIndex: number;
 };
 
-export default function CardStack({ cards }: CardStackProps) {
+export default function CardStack({
+  cards,
+  cardStates,
+  handleCardStateChange,
+  startingIndex,
+}: CardStackProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+
   return (
     <Swiper
       grabCursor={true}
       effect={"cards"}
       modules={[EffectCards]}
       onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+      initialSlide={startingIndex}
       className="aspect-[calc(2.5/3.5)] w-48"
     >
       {cards.map((card) => (
-        <SwiperSlide key={card.id} className="rounded-md shadow-md">
+        <SwiperSlide
+          key={card.id}
+          className="rounded-md shadow-md"
+          onClick={() => handleCardStateChange(card.id)}
+        >
           <div className="relative h-full inset-ring-8 inset-ring-white">
+            <div
+              className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} h-full bg-red-400`}
+            ></div>
             <Image src={card.imgSrc} alt={card.name} fill className="-z-10" />
           </div>
         </SwiperSlide>
       ))}
       <span slot="container-end">
-        <div className="p-4 text-center">{cards.at(activeIndex).name}</div>
+        <div className="p-4 text-center text-sm">
+          <p>{cards.at(activeIndex).name}</p>
+        </div>
       </span>
     </Swiper>
   );
