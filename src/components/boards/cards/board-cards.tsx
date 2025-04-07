@@ -26,7 +26,7 @@ export default function BoardCards({ board }: BoardCardsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   function initializeCardStates(): Record<number, boolean> {
-    const initialCardStates = {};
+    const initialCardStates: Record<number, boolean> = {};
     for (const card of board.cards) {
       initialCardStates[card.id] = false;
     }

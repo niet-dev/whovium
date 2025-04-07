@@ -62,8 +62,10 @@ export async function fetchCardsByBoardId(id: number) {
   return res;
 }
 
-export async function fetchBoardById(id: number): BoardWithUserAndCards {
-  const res = await prisma.board.findUnique({
+export async function fetchBoardById(
+  id: number,
+): Promise<BoardWithUserAndCards> {
+  const res = await prisma.board.findUniqueOrThrow({
     where: {
       id: id,
     },

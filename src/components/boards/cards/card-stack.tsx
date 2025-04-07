@@ -13,7 +13,7 @@ import "swiper/css/effect-cards";
 type CardStackProps = {
   cards: Card[];
   cardStates: Record<number, boolean>;
-  handleCardStateChange: (number) => void;
+  handleCardStateChange: (id: number) => void;
   startingIndex: number;
 };
 
@@ -50,7 +50,7 @@ export default function CardStack({
       ))}
       <span slot="container-end">
         <div className="text-text-strong p-4 text-center text-sm font-bold">
-          <p>{cards.at(activeIndex).name}</p>
+          <p>{cards.at(activeIndex)?.name}</p>
         </div>
       </span>
     </Swiper>
