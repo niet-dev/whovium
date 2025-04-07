@@ -22,7 +22,7 @@ type NavBarProps = {
 
 export default function NavBar({ user }: NavBarProps) {
   return (
-    <header>
+    <header className="bg-background">
       <nav className="container mx-auto flex h-14 w-full justify-between p-4">
         <Link href="/" className="text-brand flex items-center font-bold">
           W?
@@ -32,10 +32,7 @@ export default function NavBar({ user }: NavBarProps) {
             <NavigationMenuItem>
               <Link href="/boards" legacyBehavior passHref>
                 <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "text-text-strong",
-                  )}
+                  className={cn(navigationMenuTriggerStyle(), "text-text-weak")}
                 >
                   Boards
                 </NavigationMenuLink>
@@ -58,7 +55,7 @@ export default function NavBar({ user }: NavBarProps) {
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "text-text-strong",
+                      "text-text-weak",
                     )}
                   >
                     Sign in
