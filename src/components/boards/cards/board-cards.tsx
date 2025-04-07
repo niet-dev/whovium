@@ -41,14 +41,14 @@ export default function BoardCards({ board }: BoardCardsProps) {
   }
 
   return (
-    <main>
-      <div className="relative flex w-full items-center justify-center bg-gray-200 p-4">
+    <main className="relative">
+      <div className="bg-fill/90 relative flex h-14 w-full items-center justify-center p-4">
         <div className="absolute left-0 pl-4">
           <Link href={`/boards/${board.id}`}>
-            <ChevronLeft size="20" />
+            <ChevronLeft size="20" className="text-text-strong" />
           </Link>
         </div>
-        <h3>{board.title}</h3>
+        <h1 className="text-text-strong">{board.title}</h1>
       </div>
       <div className="container mx-auto">
         <section aria-label="Cards" className="flex justify-center py-8">
@@ -60,17 +60,18 @@ export default function BoardCards({ board }: BoardCardsProps) {
                   setActiveIndex(index);
                   setDialogOpen(true);
                 }}
+                className="isolate"
               >
-                <div className="rounded-md shadow-md inset-ring-4 inset-ring-white">
+                <div className="inset-ring-background rounded-md shadow-md inset-ring-4">
                   <div className="relative aspect-[calc(2.5/3.5)] h-28 rounded-md">
                     <div
-                      className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} h-full rounded-md bg-red-400`}
+                      className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} bg-stroke-strong h-full rounded-md`}
                     ></div>
                     <Image
                       src={card.imgSrc}
                       alt={card.name}
                       fill
-                      className="-z-20 rounded-md"
+                      className="-z-10 rounded-md"
                     />
                   </div>
                 </div>
@@ -87,14 +88,12 @@ export default function BoardCards({ board }: BoardCardsProps) {
               Tap a card to flip it over!
             </DialogDescription>
           </DialogHeader>
-          <div>
-            <CardStack
-              cards={board.cards}
-              cardStates={cardStates}
-              handleCardStateChange={handleCardStateChange}
-              startingIndex={activeIndex}
-            />
-          </div>
+          <CardStack
+            cards={board.cards}
+            cardStates={cardStates}
+            handleCardStateChange={handleCardStateChange}
+            startingIndex={activeIndex}
+          />
         </DialogContent>
       </Dialog>
     </main>

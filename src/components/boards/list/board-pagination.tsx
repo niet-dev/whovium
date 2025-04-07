@@ -35,9 +35,7 @@ export default function BoardPagination({ pageCount }: { pageCount: number }) {
             aria-disabled={!hasPreviousPage}
             tabIndex={hasPreviousPage ? undefined : -1}
             className={
-              hasPreviousPage
-                ? undefined
-                : "text-stroke-weak pointer-events-none"
+              hasPreviousPage ? undefined : "text-fill/70 pointer-events-none"
             }
           />
         </PaginationItem>
@@ -85,7 +83,7 @@ export default function BoardPagination({ pageCount }: { pageCount: number }) {
             aria-disabled={!hasNextPage}
             tabIndex={hasNextPage ? undefined : -1}
             className={
-              hasNextPage ? undefined : "text-stroke-weak pointer-events-none"
+              hasNextPage ? undefined : "text-fill/70 pointer-events-none"
             }
           />
         </PaginationItem>

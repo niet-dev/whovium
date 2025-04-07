@@ -42,14 +42,14 @@ export default function CardStack({
         >
           <div className="relative h-full inset-ring-8 inset-ring-white">
             <div
-              className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} h-full bg-red-400`}
+              className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} bg-stroke-strong h-full`}
             ></div>
             <Image src={card.imgSrc} alt={card.name} fill className="-z-10" />
           </div>
         </SwiperSlide>
       ))}
       <span slot="container-end">
-        <div className="p-4 text-center text-sm">
+        <div className="text-text-strong p-4 text-center text-sm font-bold">
           <p>{cards.at(activeIndex).name}</p>
         </div>
       </span>

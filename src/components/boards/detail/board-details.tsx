@@ -24,14 +24,14 @@ export default function BoardDetails({ board }: BoardDetailsProps) {
           <div className="relative flex w-full items-center justify-center">
             <div className="absolute left-0 pl-4">
               <Link href="/boards">
-                <ChevronLeft size="20" />
+                <ChevronLeft size="20" className="text-text-weak" />
               </Link>
             </div>
             <h1>Details</h1>
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto max-w-md px-4 py-8">
         <div className="bg-fill rounded-md">
           <section
             aria-label="Board details"
