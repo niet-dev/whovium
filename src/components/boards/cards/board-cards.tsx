@@ -42,17 +42,24 @@ export default function BoardCards({ board }: BoardCardsProps) {
 
   return (
     <main className="relative">
-      <div className="bg-fill/90 relative flex h-14 w-full items-center justify-center p-4">
-        <div className="absolute left-0 pl-4">
-          <Link href={`/boards/${board.id}`}>
-            <ChevronLeft size="20" className="text-text-strong" />
-          </Link>
+      <div className="bg-fill/90 text-text-strong p-4">
+        <div className="container mx-auto">
+          <div className="relative flex w-full items-center justify-center">
+            <div className="absolute left-0 pl-4">
+              <Link href={`/boards/${board.id}`}>
+                <ChevronLeft size="20" className="text-text-weak" />
+              </Link>
+            </div>
+            <h1 className="font-bold">{board.title}</h1>
+          </div>
         </div>
-        <h1 className="text-text-strong">{board.title}</h1>
       </div>
       <div className="container mx-auto">
-        <section aria-label="Cards" className="flex justify-center py-8">
-          <div className="grid grid-cols-3 gap-4">
+        <section
+          aria-label="Cards"
+          className="flex justify-center py-8 md:py-16"
+        >
+          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 sm:gap-8 md:grid-cols-5">
             {board.cards.map((card, index) => (
               <div
                 key={card.id}
@@ -63,7 +70,7 @@ export default function BoardCards({ board }: BoardCardsProps) {
                 className="isolate"
               >
                 <div className="inset-ring-background rounded-md shadow-md inset-ring-4">
-                  <div className="relative aspect-[calc(2.5/3.5)] h-28 rounded-md">
+                  <div className="relative aspect-[calc(2.5/3.5)] h-28 rounded-md sm:h-36 md:h-40 lg:h-48">
                     <div
                       className={`${cardStates[card.id] ? "opacity-70" : "opacity-0"} bg-stroke-strong h-full rounded-md`}
                     ></div>

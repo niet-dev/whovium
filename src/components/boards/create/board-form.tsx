@@ -152,8 +152,8 @@ export default function BoardForm({ userId }: { userId: number }) {
   }
 
   return (
-    <div className="relative container mx-auto max-w-lg px-4 py-16">
-      <Card className="bg-fill inset-ring-stroke-weak border-none inset-ring-2">
+    <div className="relative container mx-auto max-w-lg px-4 py-16 md:py-32">
+      <Card className="bg-fill inset-ring-stroke-weak border-none shadow-md">
         <CardHeader>
           <CardTitle className="text-text-strong text-center">
             Create a new board

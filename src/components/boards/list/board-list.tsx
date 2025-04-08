@@ -19,12 +19,14 @@ export default async function BoardList({
   }
 
   return (
-    <ul className="flex flex-col items-center gap-8">
-      {boards.map((board) => (
-        <li key={board.id}>
-          <BoardSummary board={board} />
-        </li>
-      ))}
-    </ul>
+    <div className="flex justify-center">
+      <ul className="flex flex-col items-center gap-8 px-4 md:grid md:grid-cols-2 xl:grid-cols-3">
+        {boards.map((board) => (
+          <li key={board.id}>
+            <BoardSummary board={board} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
