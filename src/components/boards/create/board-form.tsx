@@ -152,10 +152,12 @@ export default function BoardForm({ userId }: { userId: number }) {
   }
 
   return (
-    <div className="container mx-auto my-[15vh] w-[600px]">
-      <Card>
+    <div className="relative container mx-auto max-w-lg px-4 py-16">
+      <Card className="bg-fill inset-ring-stroke-weak border-none inset-ring-2">
         <CardHeader>
-          <CardTitle className="text-center">Create a new board</CardTitle>
+          <CardTitle className="text-text-strong text-center">
+            Create a new board
+          </CardTitle>
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -170,6 +172,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                       <Input
                         type="text"
                         placeholder="Enter a title..."
+                        className="bg-background/80 border-stroke-weak"
                         {...field}
                       />
                     </FormControl>
@@ -187,6 +190,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                     <FormControl>
                       <Textarea
                         placeholder="Enter a description..."
+                        className="bg-background/80 border-stroke-weak"
                         {...field}
                       />
                     </FormControl>
@@ -200,13 +204,17 @@ export default function BoardForm({ userId }: { userId: number }) {
                   <p
                     className={cn(
                       "flex items-center space-x-2 text-sm font-semibold",
-                      form.formState.errors.cover && "text-red-500",
+                      form.formState.errors.cover && "text-error",
                     )}
                   >
                     Cover Image
                   </p>
                   <CollapsibleTrigger asChild>
-                    <Button variant="ghost" size="sm">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="cursor-pointer"
+                    >
                       <ChevronsUpDown className="h-4 w-4" />
                       <span className="sr-only">Toggle</span>
                     </Button>
@@ -231,6 +239,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                               onChange(e.target.files && e.target.files[0]);
                               onCoverImageChange();
                             }}
+                            className="bg-background/80 border-stroke-weak"
                           />
                         </FormControl>
                         <FormMessage />
@@ -239,10 +248,10 @@ export default function BoardForm({ userId }: { userId: number }) {
                   />
                   {coverPreviewShown && (
                     <div className="my-6 flex justify-center py-4">
-                      <div className="flex flex-col space-y-4 rounded-md border px-6 py-4">
+                      <div className="bg-background/80 border-stroke-weak flex flex-col space-y-4 rounded-md border px-6 py-4 shadow-md">
                         <div>
                           <FormLabel htmlFor="cover">Cover</FormLabel>
-                          <div className="relative size-40 rounded-md shadow-md">
+                          <div className="relative size-40 rounded-md">
                             <Image
                               src={coverPreviewURL}
                               alt="cover image"
@@ -260,6 +269,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                               setEditorImage({ file: form.getValues("cover") });
                               setDialogOpen(true);
                             }}
+                            className="cursor-pointer"
                           >
                             <Crop />
                           </Button>
@@ -275,13 +285,17 @@ export default function BoardForm({ userId }: { userId: number }) {
                   <p
                     className={cn(
                       "text-sm font-semibold",
-                      form.formState.errors.images && "text-red-500",
+                      form.formState.errors.images && "text-error",
                     )}
                   >
                     Cards ({form.getValues("images").length})
                   </p>
                   <CollapsibleTrigger asChild>
-                    <Button variant="ghost" size="sm">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="cursor-pointer"
+                    >
                       <ChevronsUpDown className="h-4 w-4" />
                       <span className="sr-only">Toggle</span>
                     </Button>
@@ -296,23 +310,23 @@ export default function BoardForm({ userId }: { userId: number }) {
                         <div
                           {...getRootProps({
                             className: cn(
-                              "my-8 flex w-full cursor-pointer flex-col items-center justify-center rounded-md border p-3",
-                              isDragAccept && "border-green-500",
-                              isDragReject && "border-red-500",
+                              "border-stroke-weak bg-background/80 my-8 flex w-full cursor-pointer flex-col items-center justify-center rounded-md border p-3",
+                              isDragAccept && "border-primary",
+                              isDragReject && "border-error",
                             ),
                           })}
                         >
                           <div className="mt-2 mb-2 flex items-center gap-x-3">
                             <label
                               htmlFor="images"
-                              className={`cursor-pointer text-center text-sm text-[#7E8DA0]`}
+                              className={`text-text-weak cursor-pointer text-center text-sm`}
                             >
                               <p className="mb-2">
                                 Drag some files here, or click to select files
                               </p>
                               <em
                                 className={
-                                  isDragReject ? "text-red-500" : undefined
+                                  isDragReject ? "text-error" : undefined
                                 }
                               >
                                 Accepted file types: *.jpeg, *.jpg, *.png
@@ -332,10 +346,10 @@ export default function BoardForm({ userId }: { userId: number }) {
                     return (
                       <div
                         key={field.id}
-                        className="relative mb-8 rounded-md border p-6"
+                        className="bg-background/80 relative mb-8 rounded-md border p-6 shadow-md"
                       >
                         <div className="flex items-center space-x-8">
-                          <div className="relative size-40 rounded-md shadow-md">
+                          <div className="relative size-40 rounded-md">
                             <Image
                               src={URL.createObjectURL(
                                 form.getValues(`images.${index}.file`),
@@ -367,7 +381,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => remove(index)}
-                                className="text-red-500 hover:bg-red-50 hover:text-red-600"
+                                className="text-error hover:text-error/90 hover:bg-error/5 cursor-pointer"
                               >
                                 <X />
                               </Button>
@@ -379,6 +393,7 @@ export default function BoardForm({ userId }: { userId: number }) {
                                   setEditorImage({ index, file: field.file });
                                   setDialogOpen(true);
                                 }}
+                                className="cursor-pointer"
                               >
                                 <Crop />
                               </Button>
@@ -393,8 +408,7 @@ export default function BoardForm({ userId }: { userId: number }) {
             </CardContent>
 
             <CardFooter className="flex justify-end">
-              {/* TODO: Change cursor to reflect action */}
-              <Button type="submit" className="bg-green-500 hover:bg-green-600">
+              <Button type="submit" className="cursor-pointer">
                 Submit
               </Button>
             </CardFooter>
@@ -412,7 +426,6 @@ export default function BoardForm({ userId }: { userId: number }) {
           <ImageEditor config={imageEditorConfig} />
           <div className="flex justify-end">
             <Button
-              className="bg-green-500 hover:bg-green-600"
               onClick={() => {
                 if (editedImageRef.current !== null) {
                   handleImageCropSave(editedImageRef.current({}).imageData);
