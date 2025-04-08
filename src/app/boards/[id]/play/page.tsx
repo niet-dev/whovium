@@ -1,5 +1,5 @@
 import { fetchBoardById } from "@/lib/data";
-import BoardDetails from "@/components/boards/detail/board-details";
+import BoardCards from "@/components/boards/cards/board-cards";
 
 export default async function Page({
   params,
@@ -8,10 +8,8 @@ export default async function Page({
 }) {
   const id = Number((await params).id);
   const board = await fetchBoardById(id);
-
   if (board === null) {
     return <p>null</p>;
   }
-
-  return <BoardDetails board={board} />;
+  return <BoardCards board={board} />;
 }

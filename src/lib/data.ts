@@ -5,7 +5,11 @@ import { encodeHexLowerCase } from "@oslojs/encoding";
 import type { Session } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
-import type { CardWithPath, SessionValidationResult } from "@/lib/types";
+import type {
+  BoardWithUserAndCards,
+  CardWithPath,
+  SessionValidationResult,
+} from "@/lib/types";
 
 import { uploadImage } from "./actions";
 import { CreateBoardFormValues } from "./schema";
@@ -58,13 +62,16 @@ export async function fetchCardsByBoardId(id: number) {
   return res;
 }
 
-export async function fetchBoardById(id: number) {
-  const res = await prisma.board.findUnique({
+export async function fetchBoardById(
+  id: number,
+): Promise<BoardWithUserAndCards> {
+  const res = await prisma.board.findUniqueOrThrow({
     where: {
       id: id,
     },
     include: {
       createdBy: true,
+      cards: true,
     },
   });
 

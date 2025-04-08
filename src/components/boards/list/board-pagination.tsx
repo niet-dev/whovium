@@ -28,14 +28,14 @@ export default function BoardPagination({ pageCount }: { pageCount: number }) {
 
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="text-background">
         <PaginationItem>
           <PaginationPrevious
             href={createPageURL(page - 1)}
             aria-disabled={!hasPreviousPage}
             tabIndex={hasPreviousPage ? undefined : -1}
             className={
-              hasPreviousPage ? undefined : "pointer-events-none opacity-50"
+              hasPreviousPage ? undefined : "text-fill/70 pointer-events-none"
             }
           />
         </PaginationItem>
@@ -55,7 +55,10 @@ export default function BoardPagination({ pageCount }: { pageCount: number }) {
         )}
 
         <PaginationItem>
-          <PaginationLink isActive className="pointer-events-none">
+          <PaginationLink
+            isActive
+            className="bg-fill text-text-strong pointer-events-none border-none"
+          >
             {page}
           </PaginationLink>
         </PaginationItem>
@@ -80,7 +83,7 @@ export default function BoardPagination({ pageCount }: { pageCount: number }) {
             aria-disabled={!hasNextPage}
             tabIndex={hasNextPage ? undefined : -1}
             className={
-              hasNextPage ? undefined : "pointer-events-none opacity-50"
+              hasNextPage ? undefined : "text-fill/70 pointer-events-none"
             }
           />
         </PaginationItem>

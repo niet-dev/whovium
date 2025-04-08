@@ -4,6 +4,13 @@ export type BoardWithUser = Prisma.BoardGetPayload<{
   include: { createdBy: true };
 }>;
 
+export type BoardWithUserAndCards = Prisma.BoardGetPayload<{
+  include: {
+    cards: true;
+    createdBy: true;
+  };
+}>;
+
 export interface EditorImage {
   file: File;
 }
