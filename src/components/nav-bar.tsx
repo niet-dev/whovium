@@ -41,7 +41,9 @@ export default function NavBar({ user }: NavBarProps) {
             <NavigationMenuItem>
               {user ? (
                 <>
-                  <NavigationMenuTrigger>{user.username}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-text-weak">
+                    {user.username}
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-4 md:w-[200px]">
                       <li>
