@@ -22,7 +22,7 @@ type NavBarProps = {
 
 export default function NavBar({ user }: NavBarProps) {
   return (
-    <header className="bg-background">
+    <header className="bg-background relative">
       <nav className="container mx-auto flex h-14 w-full justify-between p-4">
         <Link href="/" className="text-brand flex items-center font-bold">
           W?
